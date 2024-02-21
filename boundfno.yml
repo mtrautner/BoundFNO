@@ -1,0 +1,16 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - conda
+  - python=3.9
+  - numpy
+  - matplotlib
+  - tqdm
+  - cudatoolkit=10.2
+  - pytorch
+  - torchaudio
+  - torchvision
+  - scipy
+  - h5py
+prefix: /home/mtrautne/miniconda3
