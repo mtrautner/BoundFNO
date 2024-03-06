@@ -96,7 +96,7 @@ def fig_err_vs_L(USE_CUDA = False,s = 2):
     """
     plot error vs L
     """
-    sizes = [64, 128, 256, 512, 1024]
+    sizes = [32,64,128,256,512,1024]
     
     samp_count_input = 5
     samp_count_model = 1
@@ -116,66 +116,105 @@ def fig_err_vs_L(USE_CUDA = False,s = 2):
         print("Model Loaded")
         for input_sample in range(samp_count_input):
             print('input_sample:',input_sample)
-            input_true = load_data('../data/GRF_s' + str(s) +'/GRF_size_2048_' + str(input_sample)+ '.pkl')
-            # input to torch
-            input_true = torch.from_numpy(input_true).float().unsqueeze(0).unsqueeze(0)
-            input_true = replicate_data(input_true,3)
+            
+            true_size = sizes[-1]
+            input_true = load_data('../data/GRF_s' + str(s) +'/GRF_size_' + str(true_size) + '_' + str(input_sample)+ '.pkl')
+            input_true = input_true.unsqueeze(0).unsqueeze(0)
+            # if s == 10:
+            #     input_true = load_data('../data/smooth_s10/s10_size_' + str(true_size) + '_' + str(input_sample)+ '.pkl')
+            # else:
+            #     input_true = load_data('../data/random_s0/s0_size_' + str(true_size) + '_' + str(input_sample)+ '.pkl')
+            
             # pdb.set_trace()
             if USE_CUDA:
                 # input_true = input_true.cuda()
                 model = model.cuda()
             with torch.no_grad():
                 layers_true = model(input_true, invasive = True, USE_CUDA = USE_CUDA)
-            print('Truth Evaluated')
+            
+            
+
             if USE_CUDA:
                 layers_true = [layer.cpu() for layer in layers_true]
+            
+            # layers_true = [undo_padding(layer, padding) for layer in layers_true]
             true_dim = layers_true[0].shape[-1]
+        
 
-            for size in sizes:
+
+            for size_i, size in enumerate(sizes[:-1]):
+                # print(size)
+                # comparison
+
                 input_disc = load_data('../data/GRF_s' +str(s) + f'/GRF_size_{size}_'+ str(input_sample)+'.pkl')
-                input_disc = torch.from_numpy(input_disc).float().unsqueeze(0).unsqueeze(0)
-                input_disc = replicate_data(input_disc,3)
-                # if USE_CUDA:
-                #     input_disc = input_disc.cuda()
+                # if s == 10:
+                #     input_disc = load_data('../data/smooth_s10/s10_size_' + str(size) + '_' + str(input_sample)+ '.pkl')
+                # else:
+                #     input_disc = load_data('../data/random_s0/s0_size_' + str(size) + '_' + str(input_sample)+ '.pkl')
+                input_disc = input_disc.unsqueeze(0).unsqueeze(0)
+                x_res = input_disc.shape[-1]
+                # input_disc = F.pad(input_disc, [0, x_res//padding, 0, x_res//padding])
+                if USE_CUDA:
+                    input_disc = input_disc.cuda()
+                with torch.no_grad():
+                    layers_disc = model(input_disc, invasive = True, USE_CUDA = USE_CUDA)
                 
-                layers_disc = model(input_disc, invasive = True, USE_CUDA = USE_CUDA)
-
                 if USE_CUDA:
                     layers_disc = [layer.cpu() for layer in layers_disc]
-                # subsample layers_true
-                # pdb.set_trace()
-                # layers_true_sub = layers_true[:,::true_dim//size,::true_dim//size]
+
+                
                 for i in range(len(layers_disc)):
 
                     layer_true_i = layers_true[i]
                     layer_disc_i = layers_disc[i]
 
-                    if layer_true_i.size()[-1] != true_dim:
-                        layer_true_i = undo_padding(layer_true_i, model.padding)
-                    if layer_disc_i.size()[-1] != size:
-                        layer_disc_i = undo_padding(layer_disc_i, model.padding)
+                    # if layer_true_i.size()[-1] != true_dim:
+                    #     layer_true_i = undo_padding(layer_true_i, model.padding)
+                    # if layer_disc_i.size()[-1] != size:
+                    #     layer_disc_i = undo_padding(layer_disc_i, model.padding)
+                    # pdb.set_trace()
+                    # layer_true_i_sub = layer_true_i[...,::true_dim//size,::true_dim//size]
+                    # if i == 0:
+                    #     fig, ax = plt.subplots(1,2,figsize = (10,5))
+                    #     ax[0].imshow(layer_true_i[0,0].detach().numpy(),cmap = 'viridis')
+                    #     ax[0].set_title('True')
+                    #     ax[1].imshow(layer_disc_i[0,0].detach().numpy(),cmap = 'viridis')
+                    #     ax[1].set_title('Disc')
+                    #     plt.savefig('../Figures/layer_compare_s' + str(s) + '_size_' + str(size) + '_layer_' + str(i) + '.pdf')
+                    ss = true_size//size
+                    err = torch.norm(layer_disc_i[::ss,::ss] - layer_true_i[::ss,::ss]) # loss.Lp_err(layer_disc_i,layer_true_i_sub,size_average=False)
+                    # all_err[size_i,i,model_sample,input_sample] = err/
+                    # true_norm = torch.norm(layer_true_i) #loss.Lp_norm(layer_true_i_sub,size_average=False)
+                    all_err[size_i,i,model_sample,input_sample] = err/size
 
-                    layer_true_i_sub = layer_true_i[...,::true_dim//size,::true_dim//size]
-                   
-                    
-                    err = loss.Lp_err(layer_disc_i,layer_true_i_sub,size_average=True)
-                    true_norm = loss.Lp_norm(layer_true_i_sub,size_average=True)
-
-                    all_err[sizes.index(size),i,model_sample,input_sample] = err/true_norm
+                    # all_err[sizes.index(size),i,model_sample,input_sample] = err/true_norm
 
     # plot
     # err to np
     all_err = all_err.detach().numpy()
+    # print("all err: ",all_err)
+    # pdb.set_trace()
+ 
     # reshape to (sizes, layers, samples)
-    all_err = all_err.reshape(len(sizes),layer_count,samp_count_model*samp_count_input)
+    all_err = all_err.reshape(len(sizes)-1,layer_count,samp_count_model*samp_count_input)
     # average over samples
     all_err_mean = np.mean(all_err,axis = -1)
-    all_err_std = 2*np.std(all_err,axis = -1)
+    all_err_std = 0 * all_err_mean #2*np.std(all_err,axis = -1)
 
     
+    sizes = sizes[:-1]
+    # print(all_err_mean)
+    # print(all_err_std)
 
-    print(all_err_mean)
-    print(all_err_std)
+    slopes = []
+    for i in range(len(layers_true)):
+        p = np.polyfit(np.log(sizes),np.log(all_err_mean[:,i]),1)
+        # extract slop of best fit line
+        slope = p[0]
+        slopes.append(slope)
+        print(f'Layer {i+1} slope: {slope}')
+
+    print(f'Average slope: {np.mean(slopes)}')
 
     plt.figure(figsize = (10,10))
     slopes = []

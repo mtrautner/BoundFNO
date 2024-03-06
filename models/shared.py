@@ -68,6 +68,7 @@ def resize_rfft(ar, s):
         out: (..., s//2 + 1) tensor
     """
     N = ar.shape[-1]
+    # pdb.set_trace()
     s = s//2 + 1 if s >=1 else s//2
     if s >= N: # zero pad or leave alone
         out = torch.zeros(list(ar.shape[:-1]) + [s - N], dtype=torch.cfloat, device=ar.device)
@@ -311,7 +312,9 @@ class SpectralConv2d(nn.Module):
         self.scale = 1. / (self.in_channels * self.out_channels)
         self.weights1 = nn.Parameter(self.scale * torch.rand(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
         self.weights2 = nn.Parameter(self.scale * torch.rand(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
-
+        # self.weights1 = nn.Parameter(torch.ones(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
+        # self.weights2 = nn.Parameter(torch.ones(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
+        # it isn't the weights
     def forward(self, x, s=None):
         """
         Input shape (of x):     (batch, channels, ..., nx_in, ny_in)
@@ -322,14 +325,22 @@ class SpectralConv2d(nn.Module):
         out_ft[1] = self.out_channels
         xsize = out_ft[-2:]
         # Compute Fourier coeffcients (un-scaled)
+        in_x = x
         x = fft.rfft2(x) # used to be no normalization
-
+        # print('shape: ' + str(x.shape))
+        # x[...,512:,512:] = 0
         # Multiply relevant Fourier modes
         out_ft = torch.zeros(*out_ft[:-2], xsize[-2], xsize[-1]//2 + 1, dtype=torch.cfloat, device=x.device)
-        out_ft[..., :self.modes1, :self.modes2] = \
-            compl_mul(x[..., :self.modes1, :self.modes2], self.weights1)
+
+        # except: pdb.set_trace()
+        # print('out_ft size: ' + str(out_ft.shape))
+        # print('weights1 size: ' + str(self.weights1.shape))
+        mult_1 =  compl_mul(x[..., :self.modes1, :self.modes2], self.weights1[:,:,:self.modes1,:self.modes1])
+
+        out_ft[..., :self.modes1, :self.modes2] = mult_1
+
         out_ft[..., -self.modes1:, :self.modes2] = \
-            compl_mul(x[..., -self.modes1:, :self.modes2], self.weights2)
+            compl_mul(x[..., -self.modes1:, :self.modes2], self.weights2[:,:,:self.modes2,:self.modes2])
         
         # pdb.set_trace()
 

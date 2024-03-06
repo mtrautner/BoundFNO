@@ -104,13 +104,12 @@ class FNO2d(nn.Module):
         
         # Map from input domain into the torus
         # x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
-        
         # Fourier integral operator layers on the torus
         for idx_layer, (speconv, w) in enumerate(zip(self.speconvs, self.ws)):
             if idx_layer != self.n_layers - 1:
                 # pdb.set_trace()
-                x_high_res =  speconv(x, s=self.s_outputspace)# + w(projector2d(x, s=self.s_outputspace))
-                x = speconv(x)# + w(x) 
+                x_high_res =  speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace))
+                x = speconv(x) + w(x) 
                 x = self.act(x)
                 x_high_res = self.act(x_high_res)
                 if invasive:
@@ -118,7 +117,7 @@ class FNO2d(nn.Module):
                     layer_outputs.append(x_high_res.cpu())
             else:
                 # Change resolution in function space consistent way
-                x = speconv(x, s=self.s_outputspace) #+ w(projector2d(x, s=self.s_outputspace)) 
+                x = speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace)) 
 
         # Map from the torus into the output domain
         if self.s_outputspace is not None:
