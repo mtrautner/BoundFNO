@@ -96,7 +96,7 @@ def fig_err_vs_L(USE_CUDA = False,s = 2):
     """
     plot error vs L
     """
-    sizes = [32,64,128,256,512,1024]
+    sizes = [32,64,128,256,512] #,1024]
     
     samp_count_input = 5
     samp_count_model = 1
@@ -114,6 +114,13 @@ def fig_err_vs_L(USE_CUDA = False,s = 2):
         model = load_model(model_info_path, model_path)
         # no gradient
         print("Model Loaded")
+
+        # save non-cuda version of model
+        # move model to cpu and save
+        model_cpu = model.cpu()
+        torch.save({'model_state_dict': model_cpu.state_dict()}, '../models/trained_models/trained_smooth_model_0.pt')
+
+
         for input_sample in range(samp_count_input):
             print('input_sample:',input_sample)
             
@@ -271,6 +278,8 @@ if __name__ == '__main__':
     else:
         s = 2
     with torch.no_grad():
+        # print cuda available
+        print('Cuda available:',torch.cuda.is_available())
         start_time = time.time()
         fig_err_vs_L(USE_CUDA = True,s = s)
         print('Time elapsed:',time.time()-start_time)

@@ -12,7 +12,7 @@ import pdb
 # add to path
 sys.path.append(os.path.join('..'))
 from models.func_to_func2d_invasive import FNO2d
-from util.utilities_module import LpLoss, Sobolev_Loss
+from util.utilities_module import *
 from matplotlib.ticker import ScalarFormatter
 from models.shared import SpectralConv2d
 

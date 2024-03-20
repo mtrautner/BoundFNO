@@ -148,16 +148,26 @@ def resize_rfft2(ar, s):
     return resize_fft(out.transpose(-2,-1), s1).transpose(-2,-1) # second to last axis (fft)
 
     
-def get_grid2d(shape, device):
+def get_grid2d(shape, device,periodic = False):
     """
     Returns a discretization of the 2D identity function on [0,1]^2
     """
+    
     batchsize, size_x, size_y = shape[0], shape[1], shape[2]
     gridx = torch.linspace(0, 1, size_x)
     gridx = gridx.reshape(1, size_x, 1, 1).repeat([batchsize, 1, size_y, 1])
     gridy = torch.linspace(0, 1, size_y)
     gridy = gridy.reshape(1, 1, size_y, 1).repeat([batchsize, size_x, 1, 1])
-    return torch.cat((gridx, gridy), dim=-1).to(device)
+
+    if not periodic:
+        return torch.cat((gridx, gridy), dim=-1).to(device)
+    else:
+        PI = 3.141592653589793
+        sinx = torch.sin(2*PI*gridx)
+        siny = torch.sin(2*PI*gridy)
+        cosx = torch.cos(2*PI*gridx)
+        cosy = torch.cos(2*PI*gridy)
+        return torch.cat((sinx,cosx,siny,cosy), dim=-1).to(device)
 
 
 def projector2d(x, s=None):

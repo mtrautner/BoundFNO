@@ -1,28 +1,54 @@
-Running eval_model.py with task id 5
+Cuda available: True
 model_sample: 0
+Cuda available: True
+model_sample: 0
+Cuda available: True
+model_sample: 0
+Model Loaded
+Model Loaded
+Model Loaded
 input_sample: 0
-32
-64
-128
-256
-512
-1024
-[[4.06001436e-06 4.26201900e-08 4.77908324e-10 5.40979978e-12
-  1.21821918e-13]
- [1.53088502e-06 1.49858028e-08 1.74988898e-10 2.25784777e-12
-  5.78349489e-14]
- [1.33960964e-06 1.58415361e-08 2.19682467e-10 2.86846220e-12
-  7.58098825e-14]
- [1.14542468e-06 1.35913991e-08 1.75743031e-10 2.31826689e-12
-  5.96393323e-14]
- [1.11583518e-06 1.57828630e-08 2.42213638e-10 3.64290976e-12
-  9.27078577e-14]
- [1.06634116e-06 1.56455382e-08 2.71884959e-10 3.98702729e-12
-  1.07899156e-13]]
-Layer 1 slope: -0.3211067436341392
-Layer 2 slope: -0.20644718788931096
-Layer 3 slope: -0.08524521555405956
-Layer 4 slope: -0.012517034915914915
-Layer 5 slope: 0.023447819791236627
-Average slope: -0.12037367244043762
-Time elapsed: 26.69691777229309
+input_sample: 0
+input_sample: 0
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 284, in <module>
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 284, in <module>
+Traceback (most recent call last):
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 284, in <module>
+            fig_err_vs_L(USE_CUDA = True,s = s)fig_err_vs_L(USE_CUDA = True,s = s)fig_err_vs_L(USE_CUDA = True,s = s)
+
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 140, in fig_err_vs_L
+
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 140, in fig_err_vs_L
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/eval_model_trained.py", line 140, in fig_err_vs_L
+    layers_true = model(input_true, invasive = True, USE_CUDA = USE_CUDA)    
+      File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+layers_true = model(input_true, invasive = True, USE_CUDA = USE_CUDA)layers_true = model(input_true, invasive = True, USE_CUDA = USE_CUDA)
+
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+        return forward_call(*input, **kwargs)    return forward_call(*input, **kwargs)return forward_call(*input, **kwargs)
+
+
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/../models/func_to_func2d_invasive.py", line 98, in forward
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/../models/func_to_func2d_invasive.py", line 98, in forward
+  File "/central/groups/astuart/mtrautne/BoundFNO/analysis/../models/func_to_func2d_invasive.py", line 98, in forward
+        x = self.fc0(x)    x = self.fc0(x)
+
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+x = self.fc0(x)
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+            return forward_call(*input, **kwargs)return forward_call(*input, **kwargs)return forward_call(*input, **kwargs)
+
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 103, in forward
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 103, in forward
+
+  File "/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/linear.py", line 103, in forward
+            return F.linear(input, self.weight, self.bias)return F.linear(input, self.weight, self.bias)return F.linear(input, self.weight, self.bias)
+
+
+RuntimeErrorRuntimeError: : mat1 and mat2 shapes cannot be multiplied (262144x3 and 5x64)RuntimeErrormat1 and mat2 shapes cannot be multiplied (262144x3 and 5x64): 
+mat1 and mat2 shapes cannot be multiplied (262144x3 and 5x64)
+

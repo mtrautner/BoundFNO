@@ -32,7 +32,8 @@ class FNO2d(nn.Module):
                  d_out=1,
                  act='gelu',
                  n_layers=4,
-                 get_grid=True
+                 get_grid=True,
+                 periodic_grid = False
                  ):
         """
         modes1, modes2  (int): Fourier mode truncation levels
@@ -59,12 +60,14 @@ class FNO2d(nn.Module):
         self.act = _get_act(act)
         self.n_layers = n_layers
         self.get_grid = get_grid
+        self.periodic_grid = periodic_grid
         if self.n_layers is None:
             self.n_layers = 4
         
         self.set_outputspace_resolution(s_outputspace)
 
-        self.fc0 = nn.Linear((self.d_in + self.d_physical if get_grid else self.d_in), self.width)
+
+        self.fc0 = nn.Linear((self.d_in + (1+1*self.periodic_grid)*self.d_physical if get_grid else self.d_in), self.width)
         
         self.speconvs = nn.ModuleList([
             SpectralConv2d(self.width, self.width, self.modes1, self.modes2)
@@ -91,7 +94,7 @@ class FNO2d(nn.Module):
         x_res = x.shape[-2:]
         x = x.permute(0, 2, 3, 1)
         if self.get_grid:
-            x = torch.cat((x, get_grid2d(x.shape, x.device)), dim=-1)   # grid ``features''
+            x = torch.cat((x, get_grid2d(x.shape, x.device,periodic = self.periodic_grid)), dim=-1)   # grid ``features''
         if USE_CUDA:
             x = x.cuda()
             
@@ -103,15 +106,17 @@ class FNO2d(nn.Module):
             layer_outputs = []
         
         # Map from input domain into the torus
-        # x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
+        x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
         # Fourier integral operator layers on the torus
         for idx_layer, (speconv, w) in enumerate(zip(self.speconvs, self.ws)):
             if idx_layer != self.n_layers - 1:
                 # pdb.set_trace()
-                x_high_res =  speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace))
+                if invasive:
+                    x_high_res =  speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace))
+                    x_high_res = self.act(x_high_res)
+
                 x = speconv(x) + w(x) 
-                x = self.act(x)
-                x_high_res = self.act(x_high_res)
+                x = self.act(x)                
                 if invasive:
                     x_high_res = x_high_res[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]] # removes padding
                     layer_outputs.append(x_high_res.cpu())
@@ -127,7 +132,7 @@ class FNO2d(nn.Module):
         
         # Final projection layer
         x = x.permute(0, 2, 3, 1)
-        # x = self.mlp0(x)
+        x = self.mlp0(x)
         
         if invasive:
             x = x.permute(0, 3, 1, 2)
