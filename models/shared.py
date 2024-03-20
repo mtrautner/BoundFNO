@@ -356,7 +356,8 @@ class SpectralConv2d(nn.Module):
 
         # Return to physical space
         if s is None or tuple(s) == tuple(xsize):
-            x = fft.irfft2(out_ft, s=tuple(xsize))
+            # x = fft.irfft2(out_ft, s=tuple(xsize))
+            x = fft.irfft2(resize_rfft2(out_ft, xsize), s=xsize, norm="forward") /(xsize[-2]*xsize[-1])
         else:
             x = fft.irfft2(resize_rfft2(out_ft, s), s=s, norm="forward") /(xsize[-2]*xsize[-1])
 

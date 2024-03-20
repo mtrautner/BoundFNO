@@ -68,7 +68,6 @@ class FNO2d(nn.Module):
 
 
         self.fc0 = nn.Linear((self.d_in + (1+1*self.periodic_grid)*self.d_physical if get_grid else self.d_in), self.width)
-        
         self.speconvs = nn.ModuleList([
             SpectralConv2d(self.width, self.width, self.modes1, self.modes2)
                 for _ in range(self.n_layers)]
@@ -105,8 +104,12 @@ class FNO2d(nn.Module):
         if invasive:
             layer_outputs = []
         
-        # Map from input domain into the torus
-        x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
+        print(self.s_outputspace )
+        # # Map from input domain into the torus
+        x_res_padded_space = (x_res[-1] + x_res[-1]//self.padding, x_res[-2] + x_res[-2]//self.padding)
+        if self.s_outputspace is None:
+            self.s_outputspace = x_res_padded_space
+        # x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
         # Fourier integral operator layers on the torus
         for idx_layer, (speconv, w) in enumerate(zip(self.speconvs, self.ws)):
             if idx_layer != self.n_layers - 1:
@@ -115,15 +118,19 @@ class FNO2d(nn.Module):
                     x_high_res =  speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace))
                     x_high_res = self.act(x_high_res)
 
-                x = speconv(x) + w(x) 
+                x = speconv(x, s= x_res_padded_space) + w(projector2d(x, s= x_res_padded_space))
                 x = self.act(x)                
                 if invasive:
+                    print('x.shape',x.shape)
+                    print('x_high_res.shape',x_high_res.shape)
                     x_high_res = x_high_res[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]] # removes padding
                     layer_outputs.append(x_high_res.cpu())
             else:
                 # Change resolution in function space consistent way
                 x = speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace)) 
 
+        print('num_pad_outputspace',self.num_pad_outputspace)
+        print('x_res//self.padding',x_res[-2]//self.padding)
         # Map from the torus into the output domain
         if self.s_outputspace is not None:
             x = x[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]]
@@ -136,7 +143,6 @@ class FNO2d(nn.Module):
         
         if invasive:
             x = x.permute(0, 3, 1, 2)
-            layer_outputs.append(x.cpu())
             return layer_outputs
         if not invasive:
             return x.permute(0, 3, 1, 2)
