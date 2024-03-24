@@ -1,3 +1,4 @@
-(10000, 16384, 2, 2)
-(16384, 10000)
-128
+Traceback (most recent call last):
+  File "/central/groups/astuart/mtrautne/BoundFNO/models/trained_models/decuda_model.py", line 3, in <module>
+    from models.func_to_func2d_invasive import FNO2d
+ModuleNotFoundError: No module named 'models'

@@ -76,10 +76,7 @@ def train_model(input_data, output_data, config):
 
             y_approx = model(x,USE_CUDA = True).squeeze()
             y = y.squeeze()
-            print(y.shape)
-            print(y_approx.shape)
             loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
-            print(loss)
             loss.backward()
             train_loss = train_loss + loss.item()
 
@@ -99,15 +96,20 @@ def train_model(input_data, output_data, config):
         test_err[ep] = test_loss/len(test_loader)
         print('Epoch %d, Train Err: %.3e, Test Err: %.3e' % (ep, train_err[ep], test_err[ep]))
     
+    # take model off cuda
+    model.cpu()
     torch.save({'epochs: ': epochs, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict(), 'train_err': train_err, 'test_err': test_err}, model_path)
-    config['train_err_final'] = train_err[-1]
-    config['test_err_final'] = test_err[-1]
+    
+    # config['train_err_final'] = train_err[-1].detach().numpy()
+    # config['test_err_final'] = test_err[-1].detach().numpy()
 
     return config
 
 if __name__ == '__main__':
     # Load config file
     config_name = sys.argv[1]
+    # print CUDA available
+    print(torch.cuda.is_available())
     config_path = 'models/trained_models/' + config_name + '_info.yaml'
     with open(config_path, 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)

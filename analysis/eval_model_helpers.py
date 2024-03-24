@@ -64,13 +64,27 @@ def load_model(model_info_path, model_path,s_outputspace = (2048,2048)):
         model_info = yaml.load(file, Loader=yaml.FullLoader)
     K = model_info['K']
     width = model_info['width']
-    
+    try:
+        get_grid = model_info['get_grid']
+    except: 
+        get_grid = False
     act = model_info['act']
     n_layers = model_info['n_layers']
-    model = FNO2d(modes1 = K, modes2 = K, act = act,n_layers = n_layers, width = width, get_grid = False, s_outputspace = s_outputspace)
-    
     try:
-        model.load_state_dict(torch.load(model_path)["model_state_dict"])
+        d_in = model_info['d_in']
+    except:
+        d_in = 1
+
+    try:
+        periodic = model_info['periodic_grid']
+    except:
+        periodic = False
+    model = FNO2d(modes1 = K, modes2 = K, act = act,n_layers = n_layers, d_in = d_in, width = width, get_grid = get_grid, periodic_grid= periodic, s_outputspace = s_outputspace)
+    
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(device)
+    try:
+        model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
     except:
         model.load_state_dict(torch.load(model_path))
     model.eval()

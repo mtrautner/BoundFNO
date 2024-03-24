@@ -232,7 +232,7 @@ class Sobolev_Loss(object):
         h = 1.0 / (x.size()[-1] - 1.0)
         if size_average:
             channel_width = x.size()[1]
-            return torch.norm(x.reshape(num_examples,-1), self.p, dim=1)*h**(self.d/self.p)*(1/(channel_width)**(1/self.p))
+            return torch.mean(torch.norm(x.reshape(num_examples,-1), self.p, dim=1)*h**(self.d/self.p)*(1/(channel_width)**(1/self.p)))
         else:
             return torch.norm(x.reshape(num_examples,-1), self.p, dim=1)*h**(self.d/self.p)
     

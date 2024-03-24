@@ -2,7 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import pdb
-from .shared import SpectralConv2d, projector2d, get_grid2d, _get_act, MLP
+import sys
+import os
+sys.path.append(os.path.join('..'))
+from models.shared import SpectralConv2d, projector2d, get_grid2d, _get_act, MLP
 
 def undo_padding(layer,padding):
     """
@@ -104,7 +107,6 @@ class FNO2d(nn.Module):
         if invasive:
             layer_outputs = []
         
-        print(self.s_outputspace )
         # # Map from input domain into the torus
         x_res_padded_space = (x_res[-1] + x_res[-1]//self.padding, x_res[-2] + x_res[-2]//self.padding)
         if self.s_outputspace is None:
@@ -121,18 +123,14 @@ class FNO2d(nn.Module):
                 x = speconv(x, s= x_res_padded_space) + w(projector2d(x, s= x_res_padded_space))
                 x = self.act(x)                
                 if invasive:
-                    print('x.shape',x.shape)
-                    print('x_high_res.shape',x_high_res.shape)
                     x_high_res = x_high_res[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]] # removes padding
                     layer_outputs.append(x_high_res.cpu())
             else:
                 # Change resolution in function space consistent way
                 x = speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace)) 
 
-        print('num_pad_outputspace',self.num_pad_outputspace)
-        print('x_res//self.padding',x_res[-2]//self.padding)
         # Map from the torus into the output domain
-        if self.s_outputspace is not None:
+        if self.num_pad_outputspace is not None:
             x = x[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]]
         else:
             x = x[..., :-(x_res[-2]//self.padding), :-(x_res[-1]//self.padding)]

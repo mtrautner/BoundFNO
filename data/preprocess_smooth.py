@@ -35,11 +35,15 @@ A_input = np.delete(A_input, 2, axis = 3)
 A_input = np.transpose(A_input, (0,3,1,2))
 A_input = torch.tensor(A_input).float()
 data_path = 'smooth_training_data/A_to_chi1' 
+tiny_data_path = 'smooth_training_data/A_to_chi1_tiny'
+
 torch.save(A_input, data_path + '_input_data.pt')
+tiny_data_input = A_input[:20]
+torch.save(tiny_data_input, tiny_data_path + '_input_data.pt')
 A_input = None
 
-data_output = np.reshape(chi_1, (N_data, sgc, sgc, 1))
-data_output = np.transpose(data_output, (0,3,1,2))
+data_output = np.reshape(chi_1, (sgc, sgc, N_data,1))
+data_output = np.transpose(data_output, (2,3,0,1))
 
 # to torch array
 data_output = torch.tensor(data_output).float()
@@ -47,3 +51,10 @@ data_output = torch.tensor(data_output).float()
 # save the data
 
 torch.save(data_output, data_path + '_output_data.pt')
+
+# Save tiny version of the data
+tiny_data_output = data_output[:20]
+torch.save(tiny_data_output, tiny_data_path + '_output_data.pt')
+
+
+
