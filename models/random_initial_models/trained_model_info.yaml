@@ -1,6 +1,0 @@
-K: 18
-device: cpu
-get_grid: false
-n_layers: 4
-seed: 1989
-width: 64

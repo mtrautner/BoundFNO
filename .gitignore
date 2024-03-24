@@ -3,3 +3,5 @@
 *.pt
 *.pkl
 *.jpg
+*.pyc
+**__pycache__**
