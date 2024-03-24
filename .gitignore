@@ -5,3 +5,4 @@
 *.jpg
 *.pyc
 **__pycache__**
+*.yaml

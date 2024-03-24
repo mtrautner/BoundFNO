@@ -1,7 +1,0 @@
-K: 12
-act: relu
-device: cpu
-get_grid: false
-n_layers: 6
-seed: 1989
-width: 32
