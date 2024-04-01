@@ -76,10 +76,15 @@ def load_model(model_info_path, model_path,s_outputspace = (2048,2048)):
         d_in = 1
 
     try:
+        d_out = model_info['d_out']
+    except:
+        d_out = 1
+
+    try:
         periodic = model_info['periodic_grid']
     except:
         periodic = False
-    model = FNO2d(modes1 = K, modes2 = K, act = act,n_layers = n_layers, d_in = d_in, width = width, get_grid = get_grid, periodic_grid= periodic, s_outputspace = s_outputspace)
+    model = FNO2d(modes1 = K, modes2 = K, act = act,n_layers = n_layers, d_in = d_in,d_out = d_out, width = width, get_grid = get_grid, periodic_grid= periodic, s_outputspace = s_outputspace)
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(device)
