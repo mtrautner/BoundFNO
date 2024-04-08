@@ -177,7 +177,6 @@ class FNO2d(nn.Module):
         elif self.which_grid=='periodic':
             grid = _get_grid_periodic(size)
         #
-        print(f'{grid.shape=}')
         grid = repeat(grid, 'c x y->b c x y', b=batchsize).to(x.device)
         encoded = torch.cat((x, grid), dim=1)
         return encoded
