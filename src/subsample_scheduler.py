@@ -6,12 +6,13 @@ class SubsampleScheduler:
     '''
     def __init__(self, ss_max, ndim=2, threshold=0.9, patience=10):
         self.ss_max = ss_max # maximum subsampling
+        self.ss = ss_max # crrent subsampling rate
         self.ndim = ndim
         self.threshold = threshold
         self.patience = patience
         self.num_bad_epochs = None
         self.last_epoch = 0
-        self.best = inf
+        self.best = float("Inf")
         
     def __call__(self,x,y):
         ss = self.ss

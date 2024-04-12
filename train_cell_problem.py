@@ -19,6 +19,7 @@ sys.path.append('../../')
 
 from src.fno2d import FNO2d
 from src.utilities3 import LpLoss, HsLoss
+from src.subsample_scheduler import SubsampleScheduler
 
 def load_data(config):
     N_train = 4096 #
@@ -99,6 +100,10 @@ def train_model(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
 
+    # try out idea of subsampling
+    gridsize = 128
+    minsize = 32
+    subsampler = SubsampleScheduler(gridsize // minsize)
     
     # paths
     #model_path = '/groups/astuart/mtrautne/FNM/trainedModels/' + model_name
@@ -117,6 +122,7 @@ def train_model(config):
             optimizer.zero_grad()
             x = x.to(device)
             y = y.to(device)
+            x,y = subsampler(x,y)
 
             pred = model(x)
 
@@ -131,12 +137,15 @@ def train_model(config):
             train_loss = train_loss + loss.item()
 
             optimizer.step()
+        #
         scheduler.step()
-
+        subsampler.step(train_loss) ## adjust subsampling rate adaptively
+        
         with torch.no_grad():
             for x,y in test_loader:
                 x = x.to(device)
                 y = y.to(device)
+                x,y = subsampler(x,y)
                 pred = model(x)
                 t_loss = loss_func(pred,y)
                 test_loss = test_loss + t_loss.item()
