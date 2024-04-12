@@ -21,8 +21,8 @@ from src.fno2d import FNO2d
 from src.utilities3 import LpLoss, HsLoss
 
 def load_data(config):
-    N_train = 128 #1024
-    N_test = 32 #256
+    N_train = 4096 #
+    N_test = 256 #
 
     dir = 'data/smooth_training_data/'
     input_data_path = dir + 'A_to_chi1_input_data.pt'
@@ -31,6 +31,10 @@ def load_data(config):
     input_data = torch.load(input_data_path)
     output_data = torch.load(output_data_path)
 
+    # normalize input (the output is invariant under arbitrary re-scaling of inputs) 
+    norm_input = torch.norm(input_data, dim=[-2,-1],keepdim=True) / 128
+    input_data = input_data / norm_input
+    
     # train/test split
     assert N_train + N_test <= len(input_data), f'N_train + N_test exceeds total data size. {N_train=} + {N_test=} > N_data={len(input_data)}.'
     # training data
@@ -82,14 +86,15 @@ def train_model(config):
     train_loader, test_loader = load_data(config)
 
     # Set loss function to be H1 loss
-    loss_func = LpLoss(p=2)
+    #loss_func = LpLoss(p=2)
+    loss_func = HsLoss()
 
     # Specify pointwise degrees of freedom
     d_in = 3 # A \in \R^{2 \times 2}_sym
     d_out = 1 # \chi \in \R^2
 
     # Initialize model
-    model = FNO2d(modes = N_modes, width = width, in_channels = d_in, out_channels = d_out)
+    model = FNO2d(modes = N_modes, width = width, in_channels = d_in, out_channels = d_out, which_grid='periodic')
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
@@ -152,7 +157,7 @@ def train_model(config):
         'train_loss_history': train_err,
         'test_loss_history': test_err,
         }, model_path)
-    torch.save(model, model_path + '_model')
+    torch.save(model.to('cpu'), model_path + '_model')
 
     # save model config
     # convert config to a dict that will be readable when saved as a .json    
