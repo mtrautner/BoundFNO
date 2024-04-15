@@ -22,8 +22,9 @@ from src.utilities3 import LpLoss, HsLoss
 from src.subsample_scheduler import SubsampleScheduler
 
 def load_data(config):
-    N_train = 4096 #
-    N_test = 256 #
+    N_train = 5000 #
+    N_valid = 512
+    N_test = 512 #
 
     dir = 'data/smooth_training_data/'
     input_data_path = dir + 'A_to_chi1_input_data.pt'
@@ -41,6 +42,9 @@ def load_data(config):
     # training data
     x_train = input_data[:N_train]
     y_train = output_data[:N_train]
+    # validation data (for subsampling)
+    x_valid = input_data[N_train:N_train+N_valid]
+    y_valid = output_data[N_train:N_train+N_valid]
     # testing data
     x_test = input_data[-N_test:]
     y_test = output_data[-N_test:]
@@ -49,9 +53,10 @@ def load_data(config):
     # Wrap training data in loader
     b_size = config['batch_size']
     train_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_train, y_train), batch_size=b_size, shuffle=True)
+    valid_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_valid,y_valid), batch_size=b_size, shuffle=False)
     test_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_test,y_test), batch_size = b_size, shuffle = False)
     
-    return train_loader, test_loader
+    return train_loader, valid_loader, test_loader
 
 
 def train_model(config):
@@ -84,7 +89,7 @@ def train_model(config):
     model_info_path = dir + model_name + '_config.yml'
     
     # Load data
-    train_loader, test_loader = load_data(config)
+    train_loader, valid_loader, test_loader = load_data(config)
 
     # Set loss function to be H1 loss
     #loss_func = LpLoss(p=2)
@@ -100,19 +105,18 @@ def train_model(config):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
 
-    # try out idea of subsampling
-    gridsize = 128
-    minsize = 32
-    subsampler = SubsampleScheduler(gridsize // minsize)
-    
-    # paths
-    #model_path = '/groups/astuart/mtrautne/FNM/trainedModels/' + model_name
-    #model_info_path = 'trainedModels/' + model_name + '_config.yml'
+    #
+    if config['subsampling']:
+        gridsize = 128
+        minsize = 32
+        subsampler = SubsampleScheduler(gridsize // minsize, patience=40)
     
     # Train model
     train_err = np.zeros((epochs,))
     test_err = np.zeros((epochs,))
-
+    #
+    epoch_timings = np.zeros((epochs,))
+    
     for ep in tqdm(range(epochs)):
         t1 = default_timer()
         train_loss = 0.0
@@ -122,7 +126,8 @@ def train_model(config):
             optimizer.zero_grad()
             x = x.to(device)
             y = y.to(device)
-            x,y = subsampler(x,y)
+            if config['subsampling'] and subsampler.ss>1:
+                x,y = subsampler(x,y)
 
             pred = model(x)
 
@@ -139,13 +144,13 @@ def train_model(config):
             optimizer.step()
         #
         scheduler.step()
-        subsampler.step(train_loss) ## adjust subsampling rate adaptively
         
         with torch.no_grad():
             for x,y in test_loader:
                 x = x.to(device)
                 y = y.to(device)
-                x,y = subsampler(x,y)
+                if config['subsampling'] and subsampler.ss>1:
+                    x,y = subsampler(x,y)
                 pred = model(x)
                 t_loss = loss_func(pred,y)
                 test_loss = test_loss + t_loss.item()
@@ -154,9 +159,31 @@ def train_model(config):
         test_err[ep]  = test_loss/len(test_loader)
         
         t2 = default_timer()
-        print(f'[{ep+1:3}], time: {t2-t1:.3f}, train: {train_err[ep]:.3e}, test: {test_err[ep]:.3e}', flush=True)
+        if config['subsampling']:
+            subsamp_str =  f'[subsamp: {subsampler.ss}]'
+        else:
+            subsamp_str = ''
+        print(f'[{ep+1:3}], time: {t2-t1:.3f}, train: {train_err[ep]:.3e}, test: {test_err[ep]:.3e}' + subsamp_str, flush=True)
 
+        if config['subsampling'] and subsampler.ss>1:
+            with torch.no_grad():
+                valid_loss = 0.
+                for x,y in valid_loader:
+                    x,y = x.to(device), y.to(device)
+                    x,y = subsampler(x,y)
+                    pred = model(x)
+                    t_loss = loss_func(pred,y)
+                    valid_loss = valid_loss + t_loss.item()
 
+            # adjust subsampling rate adaptively
+            valid_loss = valid_loss / len(valid_loader)
+            subsampler.step(valid_loss) 
+
+        # record epoch timings
+        t2 = default_timer()
+        epoch_timings[ep] = t2 - t1
+        
+        
     # Save model
     # model_path = '/groups/astuart/mtrautne/FNM/FourierNeuralMappings/homogenization/trainModels/trainedModels/' + model_name
     torch.save(
@@ -165,6 +192,7 @@ def train_model(config):
         'optimizer_state_dict': optimizer.state_dict(),
         'train_loss_history': train_err,
         'test_loss_history': test_err,
+         'epoch_timing_history': epoch_timings,
         }, model_path)
     torch.save(model.to('cpu'), model_path + '_model')
 
@@ -191,6 +219,10 @@ if __name__ == "__main__":
                     type=int,
                     default=None,
                     help="Specify the model index.")
+    parser.add_argument("--subsampling",
+                    action='store_true',
+                    default=False,
+                    help="Activate subsampling scheduler.")
     args = parser.parse_args()
 
     # Take in user arguments 
@@ -201,6 +233,10 @@ if __name__ == "__main__":
     for k,v in config.items():
         print(k,':  ',v)
 
+    config['subsampling'] = args.subsampling
+    if config['subsampling']:
+        config['model_name'] = config['model_name'] + '_subsampling'
+        
     # Check if there's a second argument
     if args.model_index != None:
         config['model_name'] = config['model_name'] + '_' + str(args.model_index)
