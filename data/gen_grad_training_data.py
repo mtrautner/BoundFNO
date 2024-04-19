@@ -1,15 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.join('..'))
-from analysis.eval_model_helpers import *
-from models.func_to_func2d_invasive import FNO2d
-from util.utilities_module import *
-from gen_GRF import *
-import torch
+import sys, os
+import pickle as pkl
 import matplotlib.pyplot as plt
 import matplotlib
+
+import torch
 import numpy as np
-import pickle as pkl
+
+# add main directory to path
+sys.path.append(os.path.join('..'))
 
 
 def gaussian_random_field_grad(s,size):
