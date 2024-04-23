@@ -35,8 +35,8 @@ class FNO2d(nn.Module):
                  d_out=1,
                  act='gelu',
                  n_layers=4,
-                 get_grid=True,
-                 periodic_grid = False
+                 get_grid=False,
+                 periodic_grid = True
                  ):
         """
         modes1, modes2  (int): Fourier mode truncation levels
@@ -69,7 +69,6 @@ class FNO2d(nn.Module):
         
         self.set_outputspace_resolution(s_outputspace)
 
-
         self.fc0 = nn.Linear((self.d_in + (1+1*self.periodic_grid)*self.d_physical if get_grid else self.d_in), self.width)
         self.speconvs = nn.ModuleList([
             SpectralConv2d(self.width, self.width, self.modes1, self.modes2)
@@ -97,6 +96,7 @@ class FNO2d(nn.Module):
         x = x.permute(0, 2, 3, 1)
         if self.get_grid:
             x = torch.cat((x, get_grid2d(x.shape, x.device,periodic = self.periodic_grid)), dim=-1)   # grid ``features''
+        
         if USE_CUDA:
             x = x.cuda()
             

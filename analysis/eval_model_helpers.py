@@ -87,7 +87,6 @@ def load_model(model_info_path, model_path,s_outputspace = (2048,2048)):
     model = FNO2d(modes1 = K, modes2 = K, act = act,n_layers = n_layers, d_in = d_in,d_out = d_out, width = width, get_grid = get_grid, periodic_grid= periodic, s_outputspace = s_outputspace)
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(device)
     try:
         model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
     except:

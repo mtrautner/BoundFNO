@@ -163,12 +163,15 @@ def get_grid2d(shape, device,periodic = False):
         return torch.cat((gridx, gridy), dim=-1).to(device)
     else:
         PI = 3.141592653589793
-        sinx = torch.sin(2*PI*gridx)
-        siny = torch.sin(2*PI*gridy)
-        cosx = torch.cos(2*PI*gridx)
-        cosy = torch.cos(2*PI*gridy)
+        gridx_per = torch.linspace(0, 1, size_x+1)[:-1] # grid without endpoint
+        gridx_per = gridx_per.reshape(1, size_x, 1, 1).repeat([batchsize, 1, size_y, 1])
+        gridy_per = torch.linspace(0, 1, size_y+1)[:-1]
+        gridy_per = gridy_per.reshape(1, 1, size_y, 1).repeat([batchsize, size_x, 1, 1])
+        sinx = torch.sin(2*PI*gridx_per)
+        siny = torch.sin(2*PI*gridy_per)
+        cosx = torch.cos(2*PI*gridx_per)
+        cosy = torch.cos(2*PI*gridy_per)
         return torch.cat((sinx,cosx,siny,cosy), dim=-1).to(device)
-
 
 def projector2d(x, s=None):
     """
@@ -322,9 +325,7 @@ class SpectralConv2d(nn.Module):
         self.scale = 1. / (self.in_channels * self.out_channels)
         self.weights1 = nn.Parameter(self.scale * torch.rand(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
         self.weights2 = nn.Parameter(self.scale * torch.rand(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
-        # self.weights1 = nn.Parameter(torch.ones(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
-        # self.weights2 = nn.Parameter(torch.ones(self.in_channels, self.out_channels, self.modes1, self.modes2, dtype=torch.cfloat))
-        # it isn't the weights
+
     def forward(self, x, s=None):
         """
         Input shape (of x):     (batch, channels, ..., nx_in, ny_in)
