@@ -31,6 +31,7 @@ def train_model(input_data, output_data, config):
     d_in = config['d_in']
     d_out = config['d_out']
     periodic = config['periodic_grid']
+    get_grid = config['get_grid']
 
     if USE_CUDA:
         gc.collect()
@@ -50,7 +51,8 @@ def train_model(input_data, output_data, config):
 
     loss_func = Sobolev_Loss(d=2,p=2)
 
-    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act,periodic_grid= periodic)
+    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act,get_grid = get_grid,periodic_grid= periodic)
+    print("Grid Status: ", get_grid)
     print("Periodic: ", periodic)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
@@ -104,8 +106,8 @@ def train_model(input_data, output_data, config):
     
     # print both to .yaml file
     errors = {}
-    errors['train relative error'] = train_err[-1]
-    errors['test relative error'] = test_err[-1]
+    errors['train relative error'] = train_err[-1].item()
+    errors['test relative error'] = test_err[-1].item()
     json_errors = {k: v for k, v in errors.items()}
     # Save dictionary to json file
     with open('models/trained_models/' + model_name+ '_errors.yml', 'w') as fp:

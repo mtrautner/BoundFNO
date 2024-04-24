@@ -50,7 +50,7 @@ s = 2
 size = 512
 torch.manual_seed(1989)
 # process input arguments
-sample_count = 2500
+sample_count = 10000
 seg = 4
 input_data = torch.zeros(sample_count,1,size//seg,size//seg)
 output_data = torch.zeros(sample_count,2,size//seg,size//seg)

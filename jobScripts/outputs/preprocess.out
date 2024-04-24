@@ -1,4 +1,4 @@
-Traceback (most recent call last):
-  File "/central/groups/astuart/mtrautne/BoundFNO/models/trained_models/decuda_model.py", line 3, in <module>
-    from models.func_to_func2d_invasive import FNO2d
-ModuleNotFoundError: No module named 'models'
+(500, 65536, 2, 2)
+(65536, 500)
+256
+N_data:  500

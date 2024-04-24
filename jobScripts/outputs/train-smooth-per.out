@@ -1,104 +1,207 @@
 True
-  0%|          | 0/100 [00:00<?, ?it/s]/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/conv.py:459: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343997789/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+Train Size:  5000
+Grid Status:  True
+Periodic:  True
+  0%|          | 0/200 [00:00<?, ?it/s]/home/mtrautne/miniconda3/lib/python3.9/site-packages/torch/nn/modules/conv.py:459: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1682343997789/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
   return F.conv2d(input, weight, bias, self.stride,
-Epoch 0, Train Err: 8.584e-01, Test Err: 8.852e-01
-  1%|          | 1/100 [00:19<32:08, 19.48s/it]Epoch 1, Train Err: 6.703e-01, Test Err: 6.507e-01
-  2%|▏         | 2/100 [00:38<31:33, 19.32s/it]Epoch 2, Train Err: 6.087e-01, Test Err: 5.048e-01
-  3%|▎         | 3/100 [00:57<31:09, 19.27s/it]Epoch 3, Train Err: 3.227e-01, Test Err: 1.949e-01
-  4%|▍         | 4/100 [01:17<30:47, 19.25s/it]Epoch 4, Train Err: 1.722e-01, Test Err: 1.646e-01
-  5%|▌         | 5/100 [01:36<30:26, 19.23s/it]Epoch 5, Train Err: 1.499e-01, Test Err: 1.717e-01
-  6%|▌         | 6/100 [01:55<30:06, 19.22s/it]Epoch 6, Train Err: 1.288e-01, Test Err: 1.229e-01
-  7%|▋         | 7/100 [02:14<29:47, 19.22s/it]Epoch 7, Train Err: 1.113e-01, Test Err: 1.145e-01
-  8%|▊         | 8/100 [02:33<29:27, 19.22s/it]Epoch 8, Train Err: 9.378e-02, Test Err: 1.209e-01
-  9%|▉         | 9/100 [02:53<29:08, 19.21s/it]Epoch 9, Train Err: 9.096e-02, Test Err: 1.067e-01
- 10%|█         | 10/100 [03:12<28:48, 19.21s/it]Epoch 10, Train Err: 8.270e-02, Test Err: 1.011e-01
- 11%|█         | 11/100 [03:31<28:29, 19.21s/it]Epoch 11, Train Err: 9.320e-02, Test Err: 1.143e-01
- 12%|█▏        | 12/100 [03:50<28:10, 19.21s/it]Epoch 12, Train Err: 8.308e-02, Test Err: 9.942e-02
- 13%|█▎        | 13/100 [04:09<27:51, 19.21s/it]Epoch 13, Train Err: 7.625e-02, Test Err: 9.305e-02
- 14%|█▍        | 14/100 [04:29<27:32, 19.21s/it]Epoch 14, Train Err: 8.046e-02, Test Err: 9.092e-02
- 15%|█▌        | 15/100 [04:48<27:12, 19.21s/it]Epoch 15, Train Err: 9.017e-02, Test Err: 1.002e-01
- 16%|█▌        | 16/100 [05:07<26:53, 19.21s/it]Epoch 16, Train Err: 7.607e-02, Test Err: 8.675e-02
- 17%|█▋        | 17/100 [05:26<26:34, 19.21s/it]Epoch 17, Train Err: 8.168e-02, Test Err: 9.537e-02
- 18%|█▊        | 18/100 [05:45<26:14, 19.21s/it]Epoch 18, Train Err: 6.780e-02, Test Err: 9.168e-02
- 19%|█▉        | 19/100 [06:05<25:55, 19.21s/it]Epoch 19, Train Err: 6.348e-02, Test Err: 8.396e-02
- 20%|██        | 20/100 [06:24<25:36, 19.21s/it]Epoch 20, Train Err: 6.383e-02, Test Err: 8.380e-02
- 21%|██        | 21/100 [06:43<25:17, 19.21s/it]Epoch 21, Train Err: 6.621e-02, Test Err: 9.328e-02
- 22%|██▏       | 22/100 [07:02<24:57, 19.20s/it]Epoch 22, Train Err: 6.503e-02, Test Err: 8.717e-02
- 23%|██▎       | 23/100 [07:22<24:38, 19.20s/it]Epoch 23, Train Err: 5.935e-02, Test Err: 9.170e-02
- 24%|██▍       | 24/100 [07:41<24:19, 19.21s/it]Epoch 24, Train Err: 6.784e-02, Test Err: 9.558e-02
- 25%|██▌       | 25/100 [08:00<24:00, 19.20s/it]Epoch 25, Train Err: 6.259e-02, Test Err: 9.520e-02
- 26%|██▌       | 26/100 [08:19<23:41, 19.20s/it]Epoch 26, Train Err: 5.952e-02, Test Err: 7.955e-02
- 27%|██▋       | 27/100 [08:38<23:21, 19.20s/it]Epoch 27, Train Err: 5.186e-02, Test Err: 8.258e-02
- 28%|██▊       | 28/100 [08:58<23:02, 19.20s/it]Epoch 28, Train Err: 6.938e-02, Test Err: 8.562e-02
- 29%|██▉       | 29/100 [09:17<22:43, 19.20s/it]Epoch 29, Train Err: 6.245e-02, Test Err: 9.245e-02
- 30%|███       | 30/100 [09:36<22:23, 19.20s/it]Epoch 30, Train Err: 5.439e-02, Test Err: 7.809e-02
- 31%|███       | 31/100 [09:55<22:04, 19.20s/it]Epoch 31, Train Err: 5.434e-02, Test Err: 8.190e-02
- 32%|███▏      | 32/100 [10:14<21:45, 19.20s/it]Epoch 32, Train Err: 5.407e-02, Test Err: 7.876e-02
- 33%|███▎      | 33/100 [10:34<21:26, 19.20s/it]Epoch 33, Train Err: 4.914e-02, Test Err: 7.462e-02
- 34%|███▍      | 34/100 [10:53<21:07, 19.20s/it]Epoch 34, Train Err: 5.041e-02, Test Err: 7.748e-02
- 35%|███▌      | 35/100 [11:12<20:47, 19.20s/it]Epoch 35, Train Err: 4.880e-02, Test Err: 7.427e-02
- 36%|███▌      | 36/100 [11:31<20:28, 19.20s/it]Epoch 36, Train Err: 4.573e-02, Test Err: 8.489e-02
- 37%|███▋      | 37/100 [11:50<20:09, 19.20s/it]Epoch 37, Train Err: 4.565e-02, Test Err: 7.495e-02
- 38%|███▊      | 38/100 [12:10<19:50, 19.20s/it]Epoch 38, Train Err: 4.427e-02, Test Err: 7.458e-02
- 39%|███▉      | 39/100 [12:29<19:31, 19.20s/it]Epoch 39, Train Err: 4.900e-02, Test Err: 7.758e-02
- 40%|████      | 40/100 [12:48<19:11, 19.20s/it]Epoch 40, Train Err: 4.299e-02, Test Err: 7.242e-02
- 41%|████      | 41/100 [13:07<18:52, 19.20s/it]Epoch 41, Train Err: 3.743e-02, Test Err: 7.134e-02
- 42%|████▏     | 42/100 [13:26<18:33, 19.19s/it]Epoch 42, Train Err: 3.871e-02, Test Err: 7.382e-02
- 43%|████▎     | 43/100 [13:45<18:14, 19.19s/it]Epoch 43, Train Err: 4.335e-02, Test Err: 7.557e-02
- 44%|████▍     | 44/100 [14:05<17:55, 19.20s/it]Epoch 44, Train Err: 4.186e-02, Test Err: 7.199e-02
- 45%|████▌     | 45/100 [14:24<17:36, 19.20s/it]Epoch 45, Train Err: 3.984e-02, Test Err: 7.332e-02
- 46%|████▌     | 46/100 [14:43<17:16, 19.20s/it]Epoch 46, Train Err: 3.813e-02, Test Err: 7.756e-02
- 47%|████▋     | 47/100 [15:02<16:57, 19.20s/it]Epoch 47, Train Err: 3.705e-02, Test Err: 7.052e-02
- 48%|████▊     | 48/100 [15:22<16:38, 19.21s/it]Epoch 48, Train Err: 3.660e-02, Test Err: 6.985e-02
- 49%|████▉     | 49/100 [15:41<16:19, 19.20s/it]Epoch 49, Train Err: 3.609e-02, Test Err: 7.383e-02
- 50%|█████     | 50/100 [16:00<16:00, 19.20s/it]Epoch 50, Train Err: 3.435e-02, Test Err: 7.231e-02
- 51%|█████     | 51/100 [16:19<15:40, 19.20s/it]Epoch 51, Train Err: 3.195e-02, Test Err: 7.307e-02
- 52%|█████▏    | 52/100 [16:38<15:21, 19.20s/it]Epoch 52, Train Err: 3.337e-02, Test Err: 6.919e-02
- 53%|█████▎    | 53/100 [16:58<15:02, 19.20s/it]Epoch 53, Train Err: 3.068e-02, Test Err: 7.423e-02
- 54%|█████▍    | 54/100 [17:17<14:43, 19.20s/it]Epoch 54, Train Err: 3.095e-02, Test Err: 6.755e-02
- 55%|█████▌    | 55/100 [17:36<14:24, 19.20s/it]Epoch 55, Train Err: 3.118e-02, Test Err: 7.006e-02
- 56%|█████▌    | 56/100 [17:55<14:04, 19.20s/it]Epoch 56, Train Err: 2.920e-02, Test Err: 6.718e-02
- 57%|█████▋    | 57/100 [18:14<13:45, 19.20s/it]Epoch 57, Train Err: 2.911e-02, Test Err: 6.839e-02
- 58%|█████▊    | 58/100 [18:34<13:26, 19.20s/it]Epoch 58, Train Err: 2.675e-02, Test Err: 6.572e-02
- 59%|█████▉    | 59/100 [18:53<13:07, 19.20s/it]Epoch 59, Train Err: 2.400e-02, Test Err: 6.987e-02
- 60%|██████    | 60/100 [19:12<12:48, 19.20s/it]Epoch 60, Train Err: 2.727e-02, Test Err: 6.632e-02
- 61%|██████    | 61/100 [19:31<12:29, 19.21s/it]Epoch 61, Train Err: 2.574e-02, Test Err: 6.637e-02
- 62%|██████▏   | 62/100 [19:50<12:09, 19.20s/it]Epoch 62, Train Err: 2.322e-02, Test Err: 6.616e-02
- 63%|██████▎   | 63/100 [20:10<11:50, 19.21s/it]Epoch 63, Train Err: 2.132e-02, Test Err: 6.481e-02
- 64%|██████▍   | 64/100 [20:29<11:31, 19.21s/it]Epoch 64, Train Err: 2.338e-02, Test Err: 6.607e-02
- 65%|██████▌   | 65/100 [20:48<11:12, 19.21s/it]Epoch 65, Train Err: 2.267e-02, Test Err: 6.576e-02
- 66%|██████▌   | 66/100 [21:07<10:52, 19.20s/it]Epoch 66, Train Err: 2.132e-02, Test Err: 6.510e-02
- 67%|██████▋   | 67/100 [21:26<10:33, 19.20s/it]Epoch 67, Train Err: 1.993e-02, Test Err: 6.478e-02
- 68%|██████▊   | 68/100 [21:46<10:14, 19.20s/it]Epoch 68, Train Err: 1.875e-02, Test Err: 6.442e-02
- 69%|██████▉   | 69/100 [22:05<09:55, 19.20s/it]Epoch 69, Train Err: 1.803e-02, Test Err: 6.473e-02
- 70%|███████   | 70/100 [22:24<09:35, 19.20s/it]Epoch 70, Train Err: 1.808e-02, Test Err: 6.407e-02
- 71%|███████   | 71/100 [22:43<09:16, 19.20s/it]Epoch 71, Train Err: 1.732e-02, Test Err: 6.370e-02
- 72%|███████▏  | 72/100 [23:02<08:57, 19.20s/it]Epoch 72, Train Err: 1.680e-02, Test Err: 6.389e-02
- 73%|███████▎  | 73/100 [23:22<08:38, 19.20s/it]Epoch 73, Train Err: 1.590e-02, Test Err: 6.363e-02
- 74%|███████▍  | 74/100 [23:41<08:19, 19.20s/it]Epoch 74, Train Err: 1.543e-02, Test Err: 6.366e-02
- 75%|███████▌  | 75/100 [24:00<08:00, 19.20s/it]Epoch 75, Train Err: 1.615e-02, Test Err: 6.398e-02
- 76%|███████▌  | 76/100 [24:19<07:40, 19.21s/it]Epoch 76, Train Err: 1.525e-02, Test Err: 6.344e-02
- 77%|███████▋  | 77/100 [24:38<07:21, 19.21s/it]Epoch 77, Train Err: 1.493e-02, Test Err: 6.334e-02
- 78%|███████▊  | 78/100 [24:58<07:02, 19.20s/it]Epoch 78, Train Err: 1.463e-02, Test Err: 6.331e-02
- 79%|███████▉  | 79/100 [25:17<06:43, 19.21s/it]Epoch 79, Train Err: 1.430e-02, Test Err: 6.342e-02
- 80%|████████  | 80/100 [25:36<06:24, 19.21s/it]Epoch 80, Train Err: 1.401e-02, Test Err: 6.314e-02
- 81%|████████  | 81/100 [25:55<06:04, 19.21s/it]Epoch 81, Train Err: 1.383e-02, Test Err: 6.306e-02
- 82%|████████▏ | 82/100 [26:14<05:45, 19.20s/it]Epoch 82, Train Err: 1.363e-02, Test Err: 6.312e-02
- 83%|████████▎ | 83/100 [26:34<05:26, 19.21s/it]Epoch 83, Train Err: 1.346e-02, Test Err: 6.295e-02
- 84%|████████▍ | 84/100 [26:53<05:07, 19.21s/it]Epoch 84, Train Err: 1.331e-02, Test Err: 6.300e-02
- 85%|████████▌ | 85/100 [27:12<04:48, 19.21s/it]Epoch 85, Train Err: 1.318e-02, Test Err: 6.296e-02
- 86%|████████▌ | 86/100 [27:31<04:28, 19.20s/it]Epoch 86, Train Err: 1.310e-02, Test Err: 6.289e-02
- 87%|████████▋ | 87/100 [27:50<04:09, 19.20s/it]Epoch 87, Train Err: 1.298e-02, Test Err: 6.291e-02
- 88%|████████▊ | 88/100 [28:10<03:50, 19.21s/it]Epoch 88, Train Err: 1.288e-02, Test Err: 6.285e-02
- 89%|████████▉ | 89/100 [28:29<03:31, 19.21s/it]Epoch 89, Train Err: 1.281e-02, Test Err: 6.281e-02
- 90%|█████████ | 90/100 [28:48<03:12, 19.20s/it]Epoch 90, Train Err: 1.276e-02, Test Err: 6.282e-02
- 91%|█████████ | 91/100 [29:07<02:52, 19.21s/it]Epoch 91, Train Err: 1.269e-02, Test Err: 6.282e-02
- 92%|█████████▏| 92/100 [29:26<02:33, 19.21s/it]Epoch 92, Train Err: 1.263e-02, Test Err: 6.273e-02
- 93%|█████████▎| 93/100 [29:46<02:14, 19.21s/it]Epoch 93, Train Err: 1.258e-02, Test Err: 6.277e-02
- 94%|█████████▍| 94/100 [30:05<01:55, 19.21s/it]Epoch 94, Train Err: 1.254e-02, Test Err: 6.277e-02
- 95%|█████████▌| 95/100 [30:24<01:36, 19.21s/it]Epoch 95, Train Err: 1.251e-02, Test Err: 6.277e-02
- 96%|█████████▌| 96/100 [30:43<01:16, 19.21s/it]Epoch 96, Train Err: 1.248e-02, Test Err: 6.276e-02
- 97%|█████████▋| 97/100 [31:03<00:57, 19.21s/it]Epoch 97, Train Err: 1.246e-02, Test Err: 6.275e-02
- 98%|█████████▊| 98/100 [31:22<00:38, 19.21s/it]Epoch 98, Train Err: 1.244e-02, Test Err: 6.275e-02
- 99%|█████████▉| 99/100 [31:41<00:19, 19.21s/it]Epoch 99, Train Err: 1.243e-02, Test Err: 6.275e-02
-100%|██████████| 100/100 [32:00<00:00, 19.21s/it]100%|██████████| 100/100 [32:00<00:00, 19.21s/it]
+Epoch 0, Train Err: 8.230e-01, Test Err: 6.642e-01
+  0%|          | 1/200 [00:35<1:58:43, 35.79s/it]Epoch 1, Train Err: 6.033e-01, Test Err: 4.232e-01
+  1%|          | 2/200 [01:08<1:51:18, 33.73s/it]Epoch 2, Train Err: 3.084e-01, Test Err: 1.958e-01
+  2%|▏         | 3/200 [01:40<1:48:35, 33.07s/it]Epoch 3, Train Err: 1.705e-01, Test Err: 1.781e-01
+  2%|▏         | 4/200 [02:12<1:46:59, 32.75s/it]Epoch 4, Train Err: 1.469e-01, Test Err: 1.633e-01
+  2%|▎         | 5/200 [02:44<1:45:54, 32.59s/it]Epoch 5, Train Err: 1.232e-01, Test Err: 1.225e-01
+  3%|▎         | 6/200 [03:17<1:45:02, 32.49s/it]Epoch 6, Train Err: 1.144e-01, Test Err: 1.139e-01
+  4%|▎         | 7/200 [03:49<1:44:16, 32.42s/it]Epoch 7, Train Err: 9.954e-02, Test Err: 1.097e-01
+  4%|▍         | 8/200 [04:21<1:43:35, 32.37s/it]Epoch 8, Train Err: 9.761e-02, Test Err: 1.052e-01
+  4%|▍         | 9/200 [04:54<1:42:57, 32.34s/it]Epoch 9, Train Err: 8.943e-02, Test Err: 9.797e-02
+  5%|▌         | 10/200 [05:26<1:42:21, 32.33s/it]Epoch 10, Train Err: 8.345e-02, Test Err: 1.168e-01
+  6%|▌         | 11/200 [05:58<1:41:46, 32.31s/it]Epoch 11, Train Err: 8.096e-02, Test Err: 1.003e-01
+  6%|▌         | 12/200 [06:30<1:41:12, 32.30s/it]Epoch 12, Train Err: 7.740e-02, Test Err: 1.402e-01
+  6%|▋         | 13/200 [07:03<1:40:39, 32.30s/it]Epoch 13, Train Err: 8.063e-02, Test Err: 9.382e-02
+  7%|▋         | 14/200 [07:35<1:40:06, 32.30s/it]Epoch 14, Train Err: 8.321e-02, Test Err: 8.738e-02
+  8%|▊         | 15/200 [08:07<1:39:33, 32.29s/it]Epoch 15, Train Err: 8.319e-02, Test Err: 9.663e-02
+  8%|▊         | 16/200 [08:40<1:39:00, 32.29s/it]Epoch 16, Train Err: 7.560e-02, Test Err: 8.979e-02
+  8%|▊         | 17/200 [09:12<1:38:28, 32.28s/it]Epoch 17, Train Err: 7.221e-02, Test Err: 7.959e-02
+  9%|▉         | 18/200 [09:44<1:37:56, 32.29s/it]Epoch 18, Train Err: 6.602e-02, Test Err: 8.423e-02
+ 10%|▉         | 19/200 [10:16<1:37:24, 32.29s/it]Epoch 19, Train Err: 7.115e-02, Test Err: 8.348e-02
+ 10%|█         | 20/200 [10:49<1:36:50, 32.28s/it]Epoch 20, Train Err: 6.960e-02, Test Err: 8.044e-02
+ 10%|█         | 21/200 [11:21<1:36:18, 32.28s/it]Epoch 21, Train Err: 7.231e-02, Test Err: 8.478e-02
+ 11%|█         | 22/200 [11:53<1:35:46, 32.29s/it]Epoch 22, Train Err: 6.411e-02, Test Err: 7.804e-02
+ 12%|█▏        | 23/200 [12:26<1:35:13, 32.28s/it]Epoch 23, Train Err: 6.252e-02, Test Err: 8.481e-02
+ 12%|█▏        | 24/200 [12:58<1:34:41, 32.28s/it]Epoch 24, Train Err: 6.292e-02, Test Err: 7.154e-02
+ 12%|█▎        | 25/200 [13:30<1:34:09, 32.28s/it]Epoch 25, Train Err: 5.732e-02, Test Err: 7.589e-02
+ 13%|█▎        | 26/200 [14:02<1:33:37, 32.28s/it]Epoch 26, Train Err: 5.616e-02, Test Err: 7.454e-02
+ 14%|█▎        | 27/200 [14:35<1:33:05, 32.28s/it]Epoch 27, Train Err: 6.111e-02, Test Err: 8.170e-02
+ 14%|█▍        | 28/200 [15:07<1:32:32, 32.28s/it]Epoch 28, Train Err: 5.601e-02, Test Err: 7.790e-02
+ 14%|█▍        | 29/200 [15:39<1:32:00, 32.28s/it]Epoch 29, Train Err: 5.675e-02, Test Err: 8.064e-02
+ 15%|█▌        | 30/200 [16:11<1:31:28, 32.28s/it]Epoch 30, Train Err: 5.833e-02, Test Err: 7.716e-02
+ 16%|█▌        | 31/200 [16:44<1:30:56, 32.28s/it]Epoch 31, Train Err: 5.742e-02, Test Err: 8.257e-02
+ 16%|█▌        | 32/200 [17:16<1:30:23, 32.28s/it]Epoch 32, Train Err: 5.286e-02, Test Err: 7.576e-02
+ 16%|█▋        | 33/200 [17:48<1:29:50, 32.28s/it]Epoch 33, Train Err: 6.093e-02, Test Err: 7.664e-02
+ 17%|█▋        | 34/200 [18:21<1:29:18, 32.28s/it]Epoch 34, Train Err: 5.994e-02, Test Err: 7.191e-02
+ 18%|█▊        | 35/200 [18:53<1:28:46, 32.28s/it]Epoch 35, Train Err: 5.027e-02, Test Err: 7.480e-02
+ 18%|█▊        | 36/200 [19:25<1:28:13, 32.28s/it]Epoch 36, Train Err: 5.210e-02, Test Err: 7.634e-02
+ 18%|█▊        | 37/200 [19:57<1:27:41, 32.28s/it]Epoch 37, Train Err: 5.177e-02, Test Err: 7.825e-02
+ 19%|█▉        | 38/200 [20:30<1:27:09, 32.28s/it]Epoch 38, Train Err: 4.961e-02, Test Err: 9.312e-02
+ 20%|█▉        | 39/200 [21:02<1:26:37, 32.28s/it]Epoch 39, Train Err: 4.998e-02, Test Err: 7.429e-02
+ 20%|██        | 40/200 [21:34<1:26:04, 32.28s/it]Epoch 40, Train Err: 5.293e-02, Test Err: 7.109e-02
+ 20%|██        | 41/200 [22:07<1:25:32, 32.28s/it]Epoch 41, Train Err: 5.349e-02, Test Err: 7.196e-02
+ 21%|██        | 42/200 [22:39<1:25:00, 32.28s/it]Epoch 42, Train Err: 5.364e-02, Test Err: 6.925e-02
+ 22%|██▏       | 43/200 [23:11<1:24:28, 32.28s/it]Epoch 43, Train Err: 4.918e-02, Test Err: 6.692e-02
+ 22%|██▏       | 44/200 [23:43<1:23:56, 32.29s/it]Epoch 44, Train Err: 4.762e-02, Test Err: 6.673e-02
+ 22%|██▎       | 45/200 [24:16<1:23:23, 32.28s/it]Epoch 45, Train Err: 4.910e-02, Test Err: 6.925e-02
+ 23%|██▎       | 46/200 [24:48<1:22:52, 32.29s/it]Epoch 46, Train Err: 5.372e-02, Test Err: 6.997e-02
+ 24%|██▎       | 47/200 [25:20<1:22:20, 32.29s/it]Epoch 47, Train Err: 4.693e-02, Test Err: 7.939e-02
+ 24%|██▍       | 48/200 [25:53<1:21:47, 32.29s/it]Epoch 48, Train Err: 4.830e-02, Test Err: 8.570e-02
+ 24%|██▍       | 49/200 [26:25<1:21:14, 32.28s/it]Epoch 49, Train Err: 4.646e-02, Test Err: 8.055e-02
+ 25%|██▌       | 50/200 [26:57<1:20:41, 32.28s/it]Epoch 50, Train Err: 4.870e-02, Test Err: 7.387e-02
+ 26%|██▌       | 51/200 [27:29<1:20:09, 32.28s/it]Epoch 51, Train Err: 4.804e-02, Test Err: 6.837e-02
+ 26%|██▌       | 52/200 [28:02<1:19:37, 32.28s/it]Epoch 52, Train Err: 4.586e-02, Test Err: 6.885e-02
+ 26%|██▋       | 53/200 [28:34<1:19:05, 32.29s/it]Epoch 53, Train Err: 4.272e-02, Test Err: 7.041e-02
+ 27%|██▋       | 54/200 [29:06<1:18:33, 32.29s/it]Epoch 54, Train Err: 4.511e-02, Test Err: 6.749e-02
+ 28%|██▊       | 55/200 [29:39<1:18:01, 32.29s/it]Epoch 55, Train Err: 4.204e-02, Test Err: 8.046e-02
+ 28%|██▊       | 56/200 [30:11<1:17:29, 32.29s/it]Epoch 56, Train Err: 4.431e-02, Test Err: 6.687e-02
+ 28%|██▊       | 57/200 [30:43<1:16:56, 32.28s/it]Epoch 57, Train Err: 3.931e-02, Test Err: 6.603e-02
+ 29%|██▉       | 58/200 [31:15<1:16:24, 32.28s/it]Epoch 58, Train Err: 4.460e-02, Test Err: 6.769e-02
+ 30%|██▉       | 59/200 [31:48<1:15:52, 32.28s/it]Epoch 59, Train Err: 4.087e-02, Test Err: 6.617e-02
+ 30%|███       | 60/200 [32:20<1:15:19, 32.29s/it]Epoch 60, Train Err: 4.034e-02, Test Err: 7.639e-02
+ 30%|███       | 61/200 [32:52<1:14:47, 32.28s/it]Epoch 61, Train Err: 4.155e-02, Test Err: 6.463e-02
+ 31%|███       | 62/200 [33:25<1:14:15, 32.29s/it]Epoch 62, Train Err: 3.875e-02, Test Err: 6.628e-02
+ 32%|███▏      | 63/200 [33:57<1:13:44, 32.29s/it]Epoch 63, Train Err: 3.844e-02, Test Err: 7.319e-02
+ 32%|███▏      | 64/200 [34:29<1:13:10, 32.29s/it]Epoch 64, Train Err: 3.924e-02, Test Err: 6.590e-02
+ 32%|███▎      | 65/200 [35:01<1:12:38, 32.29s/it]Epoch 65, Train Err: 3.966e-02, Test Err: 6.473e-02
+ 33%|███▎      | 66/200 [35:34<1:12:06, 32.29s/it]Epoch 66, Train Err: 3.791e-02, Test Err: 7.009e-02
+ 34%|███▎      | 67/200 [36:06<1:11:34, 32.29s/it]Epoch 67, Train Err: 3.729e-02, Test Err: 6.660e-02
+ 34%|███▍      | 68/200 [36:38<1:11:02, 32.29s/it]Epoch 68, Train Err: 3.727e-02, Test Err: 6.906e-02
+ 34%|███▍      | 69/200 [37:11<1:10:29, 32.29s/it]Epoch 69, Train Err: 3.506e-02, Test Err: 6.456e-02
+ 35%|███▌      | 70/200 [37:43<1:09:56, 32.28s/it]Epoch 70, Train Err: 3.243e-02, Test Err: 6.432e-02
+ 36%|███▌      | 71/200 [38:15<1:09:24, 32.29s/it]Epoch 71, Train Err: 3.535e-02, Test Err: 6.488e-02
+ 36%|███▌      | 72/200 [38:47<1:08:52, 32.29s/it]Epoch 72, Train Err: 3.533e-02, Test Err: 6.491e-02
+ 36%|███▋      | 73/200 [39:20<1:08:20, 32.29s/it]Epoch 73, Train Err: 3.471e-02, Test Err: 6.611e-02
+ 37%|███▋      | 74/200 [39:52<1:07:48, 32.29s/it]Epoch 74, Train Err: 3.488e-02, Test Err: 6.407e-02
+ 38%|███▊      | 75/200 [40:24<1:07:16, 32.29s/it]Epoch 75, Train Err: 3.366e-02, Test Err: 6.615e-02
+ 38%|███▊      | 76/200 [40:57<1:06:43, 32.29s/it]Epoch 76, Train Err: 3.303e-02, Test Err: 6.774e-02
+ 38%|███▊      | 77/200 [41:29<1:06:11, 32.29s/it]Epoch 77, Train Err: 3.516e-02, Test Err: 6.246e-02
+ 39%|███▉      | 78/200 [42:01<1:05:39, 32.29s/it]Epoch 78, Train Err: 3.096e-02, Test Err: 6.143e-02
+ 40%|███▉      | 79/200 [42:33<1:05:06, 32.29s/it]Epoch 79, Train Err: 3.095e-02, Test Err: 6.739e-02
+ 40%|████      | 80/200 [43:06<1:04:34, 32.29s/it]Epoch 80, Train Err: 3.509e-02, Test Err: 6.418e-02
+ 40%|████      | 81/200 [43:38<1:04:02, 32.29s/it]Epoch 81, Train Err: 3.214e-02, Test Err: 6.439e-02
+ 41%|████      | 82/200 [44:10<1:03:29, 32.29s/it]Epoch 82, Train Err: 3.207e-02, Test Err: 6.274e-02
+ 42%|████▏     | 83/200 [44:43<1:02:56, 32.28s/it]Epoch 83, Train Err: 3.099e-02, Test Err: 6.672e-02
+ 42%|████▏     | 84/200 [45:15<1:02:25, 32.29s/it]Epoch 84, Train Err: 2.901e-02, Test Err: 6.125e-02
+ 42%|████▎     | 85/200 [45:47<1:01:53, 32.29s/it]Epoch 85, Train Err: 2.974e-02, Test Err: 6.289e-02
+ 43%|████▎     | 86/200 [46:19<1:01:20, 32.28s/it]Epoch 86, Train Err: 2.677e-02, Test Err: 6.256e-02
+ 44%|████▎     | 87/200 [46:52<1:00:48, 32.28s/it]Epoch 87, Train Err: 2.656e-02, Test Err: 6.033e-02
+ 44%|████▍     | 88/200 [47:24<1:00:16, 32.29s/it]Epoch 88, Train Err: 2.802e-02, Test Err: 6.156e-02
+ 44%|████▍     | 89/200 [47:56<59:43, 32.28s/it]  Epoch 89, Train Err: 3.132e-02, Test Err: 6.923e-02
+ 45%|████▌     | 90/200 [48:29<59:11, 32.29s/it]Epoch 90, Train Err: 2.897e-02, Test Err: 6.259e-02
+ 46%|████▌     | 91/200 [49:01<58:39, 32.29s/it]Epoch 91, Train Err: 2.872e-02, Test Err: 6.376e-02
+ 46%|████▌     | 92/200 [49:33<58:07, 32.29s/it]Epoch 92, Train Err: 3.101e-02, Test Err: 6.464e-02
+ 46%|████▋     | 93/200 [50:05<57:34, 32.29s/it]Epoch 93, Train Err: 2.788e-02, Test Err: 6.160e-02
+ 47%|████▋     | 94/200 [50:38<57:02, 32.29s/it]Epoch 94, Train Err: 2.643e-02, Test Err: 6.101e-02
+ 48%|████▊     | 95/200 [51:10<56:30, 32.29s/it]Epoch 95, Train Err: 2.544e-02, Test Err: 6.324e-02
+ 48%|████▊     | 96/200 [51:42<55:58, 32.29s/it]Epoch 96, Train Err: 2.447e-02, Test Err: 6.178e-02
+ 48%|████▊     | 97/200 [52:15<55:25, 32.29s/it]Epoch 97, Train Err: 2.668e-02, Test Err: 6.303e-02
+ 49%|████▉     | 98/200 [52:47<54:53, 32.29s/it]Epoch 98, Train Err: 2.490e-02, Test Err: 6.109e-02
+ 50%|████▉     | 99/200 [53:19<54:20, 32.29s/it]Epoch 99, Train Err: 2.655e-02, Test Err: 6.277e-02
+ 50%|█████     | 100/200 [53:51<53:49, 32.29s/it]Epoch 100, Train Err: 2.563e-02, Test Err: 6.097e-02
+ 50%|█████     | 101/200 [54:24<53:17, 32.29s/it]Epoch 101, Train Err: 2.151e-02, Test Err: 5.966e-02
+ 51%|█████     | 102/200 [54:56<52:44, 32.29s/it]Epoch 102, Train Err: 2.236e-02, Test Err: 5.992e-02
+ 52%|█████▏    | 103/200 [55:28<52:12, 32.29s/it]Epoch 103, Train Err: 2.221e-02, Test Err: 6.066e-02
+ 52%|█████▏    | 104/200 [56:01<51:40, 32.29s/it]Epoch 104, Train Err: 2.497e-02, Test Err: 5.998e-02
+ 52%|█████▎    | 105/200 [56:33<51:07, 32.29s/it]Epoch 105, Train Err: 2.169e-02, Test Err: 5.950e-02
+ 53%|█████▎    | 106/200 [57:05<50:35, 32.29s/it]Epoch 106, Train Err: 2.304e-02, Test Err: 6.035e-02
+ 54%|█████▎    | 107/200 [57:38<50:03, 32.29s/it]Epoch 107, Train Err: 2.149e-02, Test Err: 6.173e-02
+ 54%|█████▍    | 108/200 [58:10<49:31, 32.30s/it]Epoch 108, Train Err: 2.018e-02, Test Err: 5.906e-02
+ 55%|█████▍    | 109/200 [58:42<48:59, 32.30s/it]Epoch 109, Train Err: 2.091e-02, Test Err: 5.934e-02
+ 55%|█████▌    | 110/200 [59:14<48:27, 32.30s/it]Epoch 110, Train Err: 2.250e-02, Test Err: 6.075e-02
+ 56%|█████▌    | 111/200 [59:47<47:54, 32.30s/it]Epoch 111, Train Err: 2.135e-02, Test Err: 6.204e-02
+ 56%|█████▌    | 112/200 [1:00:19<47:22, 32.30s/it]Epoch 112, Train Err: 1.982e-02, Test Err: 5.877e-02
+ 56%|█████▋    | 113/200 [1:00:51<46:50, 32.31s/it]Epoch 113, Train Err: 2.050e-02, Test Err: 6.027e-02
+ 57%|█████▋    | 114/200 [1:01:24<46:18, 32.31s/it]Epoch 114, Train Err: 1.961e-02, Test Err: 5.879e-02
+ 57%|█████▊    | 115/200 [1:01:56<45:46, 32.31s/it]Epoch 115, Train Err: 1.882e-02, Test Err: 5.841e-02
+ 58%|█████▊    | 116/200 [1:02:28<45:13, 32.31s/it]Epoch 116, Train Err: 1.682e-02, Test Err: 5.835e-02
+ 58%|█████▊    | 117/200 [1:03:01<44:41, 32.31s/it]Epoch 117, Train Err: 1.657e-02, Test Err: 5.804e-02
+ 59%|█████▉    | 118/200 [1:03:33<44:08, 32.30s/it]Epoch 118, Train Err: 1.753e-02, Test Err: 5.881e-02
+ 60%|█████▉    | 119/200 [1:04:05<43:36, 32.30s/it]Epoch 119, Train Err: 1.816e-02, Test Err: 5.890e-02
+ 60%|██████    | 120/200 [1:04:38<43:04, 32.30s/it]Epoch 120, Train Err: 1.826e-02, Test Err: 5.815e-02
+ 60%|██████    | 121/200 [1:05:10<42:32, 32.31s/it]Epoch 121, Train Err: 1.605e-02, Test Err: 5.941e-02
+ 61%|██████    | 122/200 [1:05:42<42:00, 32.31s/it]Epoch 122, Train Err: 1.680e-02, Test Err: 5.797e-02
+ 62%|██████▏   | 123/200 [1:06:14<41:27, 32.31s/it]Epoch 123, Train Err: 1.627e-02, Test Err: 5.741e-02
+ 62%|██████▏   | 124/200 [1:06:47<40:55, 32.30s/it]Epoch 124, Train Err: 1.560e-02, Test Err: 5.789e-02
+ 62%|██████▎   | 125/200 [1:07:19<40:23, 32.31s/it]Epoch 125, Train Err: 1.683e-02, Test Err: 5.791e-02
+ 63%|██████▎   | 126/200 [1:07:51<39:50, 32.31s/it]Epoch 126, Train Err: 1.513e-02, Test Err: 5.736e-02
+ 64%|██████▎   | 127/200 [1:08:24<39:18, 32.31s/it]Epoch 127, Train Err: 1.576e-02, Test Err: 5.768e-02
+ 64%|██████▍   | 128/200 [1:08:56<38:46, 32.31s/it]Epoch 128, Train Err: 1.453e-02, Test Err: 5.754e-02
+ 64%|██████▍   | 129/200 [1:09:28<38:13, 32.31s/it]Epoch 129, Train Err: 1.476e-02, Test Err: 5.700e-02
+ 65%|██████▌   | 130/200 [1:10:01<37:41, 32.31s/it]Epoch 130, Train Err: 1.478e-02, Test Err: 5.723e-02
+ 66%|██████▌   | 131/200 [1:10:33<37:08, 32.30s/it]Epoch 131, Train Err: 1.316e-02, Test Err: 5.703e-02
+ 66%|██████▌   | 132/200 [1:11:05<36:36, 32.30s/it]Epoch 132, Train Err: 1.354e-02, Test Err: 5.822e-02
+ 66%|██████▋   | 133/200 [1:11:37<36:03, 32.30s/it]Epoch 133, Train Err: 1.366e-02, Test Err: 5.669e-02
+ 67%|██████▋   | 134/200 [1:12:10<35:32, 32.31s/it]Epoch 134, Train Err: 1.329e-02, Test Err: 5.725e-02
+ 68%|██████▊   | 135/200 [1:12:42<34:59, 32.31s/it]Epoch 135, Train Err: 1.265e-02, Test Err: 5.699e-02
+ 68%|██████▊   | 136/200 [1:13:14<34:27, 32.31s/it]Epoch 136, Train Err: 1.299e-02, Test Err: 5.753e-02
+ 68%|██████▊   | 137/200 [1:13:47<33:55, 32.31s/it]Epoch 137, Train Err: 1.266e-02, Test Err: 5.684e-02
+ 69%|██████▉   | 138/200 [1:14:19<33:22, 32.31s/it]Epoch 138, Train Err: 1.160e-02, Test Err: 5.642e-02
+ 70%|██████▉   | 139/200 [1:14:51<32:50, 32.30s/it]Epoch 139, Train Err: 1.207e-02, Test Err: 5.647e-02
+ 70%|███████   | 140/200 [1:15:24<32:17, 32.30s/it]Epoch 140, Train Err: 1.135e-02, Test Err: 5.702e-02
+ 70%|███████   | 141/200 [1:15:56<31:45, 32.30s/it]Epoch 141, Train Err: 1.210e-02, Test Err: 5.672e-02
+ 71%|███████   | 142/200 [1:16:28<31:13, 32.30s/it]Epoch 142, Train Err: 1.131e-02, Test Err: 5.678e-02
+ 72%|███████▏  | 143/200 [1:17:01<30:41, 32.30s/it]Epoch 143, Train Err: 1.142e-02, Test Err: 5.618e-02
+ 72%|███████▏  | 144/200 [1:17:33<30:09, 32.31s/it]Epoch 144, Train Err: 9.845e-03, Test Err: 5.634e-02
+ 72%|███████▎  | 145/200 [1:18:05<29:36, 32.30s/it]Epoch 145, Train Err: 1.002e-02, Test Err: 5.608e-02
+ 73%|███████▎  | 146/200 [1:18:37<29:04, 32.30s/it]Epoch 146, Train Err: 9.663e-03, Test Err: 5.654e-02
+ 74%|███████▎  | 147/200 [1:19:10<28:32, 32.31s/it]Epoch 147, Train Err: 1.062e-02, Test Err: 5.638e-02
+ 74%|███████▍  | 148/200 [1:19:42<27:59, 32.30s/it]Epoch 148, Train Err: 9.606e-03, Test Err: 5.646e-02
+ 74%|███████▍  | 149/200 [1:20:14<27:27, 32.30s/it]Epoch 149, Train Err: 9.302e-03, Test Err: 5.654e-02
+ 75%|███████▌  | 150/200 [1:20:47<26:54, 32.30s/it]Epoch 150, Train Err: 9.352e-03, Test Err: 5.617e-02
+ 76%|███████▌  | 151/200 [1:21:19<26:22, 32.30s/it]Epoch 151, Train Err: 9.201e-03, Test Err: 5.603e-02
+ 76%|███████▌  | 152/200 [1:21:54<26:34, 33.21s/it]Epoch 152, Train Err: 9.278e-03, Test Err: 5.615e-02
+ 76%|███████▋  | 153/200 [1:22:27<25:48, 32.94s/it]Epoch 153, Train Err: 8.959e-03, Test Err: 5.592e-02
+ 77%|███████▋  | 154/200 [1:23:04<26:21, 34.39s/it]Epoch 154, Train Err: 8.111e-03, Test Err: 5.602e-02
+ 78%|███████▊  | 155/200 [1:23:37<25:19, 33.77s/it]Epoch 155, Train Err: 8.184e-03, Test Err: 5.588e-02
+ 78%|███████▊  | 156/200 [1:24:14<25:38, 34.97s/it]Epoch 156, Train Err: 8.269e-03, Test Err: 5.599e-02
+ 78%|███████▊  | 157/200 [1:24:47<24:29, 34.17s/it]Epoch 157, Train Err: 7.917e-03, Test Err: 5.587e-02
+ 79%|███████▉  | 158/200 [1:25:25<24:40, 35.25s/it]Epoch 158, Train Err: 8.266e-03, Test Err: 5.591e-02
+ 80%|███████▉  | 159/200 [1:25:57<23:29, 34.37s/it]Epoch 159, Train Err: 7.677e-03, Test Err: 5.581e-02
+ 80%|████████  | 160/200 [1:26:29<22:29, 33.75s/it]Epoch 160, Train Err: 7.773e-03, Test Err: 5.592e-02
+ 80%|████████  | 161/200 [1:27:01<21:39, 33.31s/it]Epoch 161, Train Err: 7.412e-03, Test Err: 5.576e-02
+ 81%|████████  | 162/200 [1:27:34<20:54, 33.02s/it]Epoch 162, Train Err: 7.059e-03, Test Err: 5.580e-02
+ 82%|████████▏ | 163/200 [1:28:06<20:13, 32.81s/it]Epoch 163, Train Err: 7.109e-03, Test Err: 5.578e-02
+ 82%|████████▏ | 164/200 [1:28:38<19:35, 32.66s/it]Epoch 164, Train Err: 6.951e-03, Test Err: 5.566e-02
+ 82%|████████▎ | 165/200 [1:29:11<18:59, 32.55s/it]Epoch 165, Train Err: 6.901e-03, Test Err: 5.584e-02
+ 83%|████████▎ | 166/200 [1:29:43<18:24, 32.48s/it]Epoch 166, Train Err: 6.885e-03, Test Err: 5.578e-02
+ 84%|████████▎ | 167/200 [1:30:15<17:50, 32.43s/it]Epoch 167, Train Err: 6.682e-03, Test Err: 5.563e-02
+ 84%|████████▍ | 168/200 [1:30:48<17:16, 32.39s/it]Epoch 168, Train Err: 6.581e-03, Test Err: 5.558e-02
+ 84%|████████▍ | 169/200 [1:31:20<16:43, 32.36s/it]Epoch 169, Train Err: 6.498e-03, Test Err: 5.565e-02
+ 85%|████████▌ | 170/200 [1:31:52<16:10, 32.35s/it]Epoch 170, Train Err: 6.490e-03, Test Err: 5.558e-02
+ 86%|████████▌ | 171/200 [1:32:25<15:37, 32.34s/it]Epoch 171, Train Err: 6.414e-03, Test Err: 5.570e-02
+ 86%|████████▌ | 172/200 [1:32:57<15:05, 32.33s/it]Epoch 172, Train Err: 6.276e-03, Test Err: 5.559e-02
+ 86%|████████▋ | 173/200 [1:33:29<14:32, 32.33s/it]Epoch 173, Train Err: 6.253e-03, Test Err: 5.565e-02
+ 87%|████████▋ | 174/200 [1:34:01<14:00, 32.32s/it]Epoch 174, Train Err: 6.218e-03, Test Err: 5.556e-02
+ 88%|████████▊ | 175/200 [1:34:34<13:28, 32.32s/it]Epoch 175, Train Err: 6.138e-03, Test Err: 5.560e-02
+ 88%|████████▊ | 176/200 [1:35:06<12:55, 32.32s/it]Epoch 176, Train Err: 6.108e-03, Test Err: 5.563e-02
+ 88%|████████▊ | 177/200 [1:35:38<12:23, 32.31s/it]Epoch 177, Train Err: 6.072e-03, Test Err: 5.554e-02
+ 89%|████████▉ | 178/200 [1:36:11<11:50, 32.31s/it]Epoch 178, Train Err: 6.037e-03, Test Err: 5.554e-02
+ 90%|████████▉ | 179/200 [1:36:43<11:18, 32.31s/it]Epoch 179, Train Err: 6.003e-03, Test Err: 5.551e-02
+ 90%|█████████ | 180/200 [1:37:15<10:46, 32.32s/it]Epoch 180, Train Err: 5.967e-03, Test Err: 5.552e-02
+ 90%|█████████ | 181/200 [1:37:48<10:14, 32.32s/it]Epoch 181, Train Err: 5.947e-03, Test Err: 5.552e-02
+ 91%|█████████ | 182/200 [1:38:20<09:41, 32.32s/it]Epoch 182, Train Err: 5.911e-03, Test Err: 5.550e-02
+ 92%|█████████▏| 183/200 [1:38:52<09:09, 32.31s/it]Epoch 183, Train Err: 5.885e-03, Test Err: 5.551e-02
+ 92%|█████████▏| 184/200 [1:39:25<08:37, 32.31s/it]Epoch 184, Train Err: 5.867e-03, Test Err: 5.550e-02
+ 92%|█████████▎| 185/200 [1:39:57<08:04, 32.32s/it]Epoch 185, Train Err: 5.853e-03, Test Err: 5.548e-02
+ 93%|█████████▎| 186/200 [1:40:29<07:32, 32.31s/it]Epoch 186, Train Err: 5.833e-03, Test Err: 5.548e-02
+ 94%|█████████▎| 187/200 [1:41:02<07:00, 32.31s/it]Epoch 187, Train Err: 5.813e-03, Test Err: 5.547e-02
+ 94%|█████████▍| 188/200 [1:41:34<06:27, 32.32s/it]Epoch 188, Train Err: 5.797e-03, Test Err: 5.547e-02
+ 94%|█████████▍| 189/200 [1:42:06<05:55, 32.31s/it]Epoch 189, Train Err: 5.788e-03, Test Err: 5.547e-02
+ 95%|█████████▌| 190/200 [1:42:38<05:23, 32.31s/it]Epoch 190, Train Err: 5.775e-03, Test Err: 5.547e-02
+ 96%|█████████▌| 191/200 [1:43:11<04:50, 32.31s/it]Epoch 191, Train Err: 5.760e-03, Test Err: 5.547e-02
+ 96%|█████████▌| 192/200 [1:43:43<04:18, 32.31s/it]Epoch 192, Train Err: 5.749e-03, Test Err: 5.546e-02
+ 96%|█████████▋| 193/200 [1:44:15<03:46, 32.31s/it]Epoch 193, Train Err: 5.742e-03, Test Err: 5.546e-02
+ 97%|█████████▋| 194/200 [1:44:48<03:13, 32.31s/it]Epoch 194, Train Err: 5.735e-03, Test Err: 5.546e-02
+ 98%|█████████▊| 195/200 [1:45:20<02:41, 32.31s/it]Epoch 195, Train Err: 5.728e-03, Test Err: 5.546e-02
+ 98%|█████████▊| 196/200 [1:45:52<02:09, 32.31s/it]Epoch 196, Train Err: 5.721e-03, Test Err: 5.546e-02
+ 98%|█████████▊| 197/200 [1:46:25<01:36, 32.31s/it]Epoch 197, Train Err: 5.717e-03, Test Err: 5.546e-02
+ 99%|█████████▉| 198/200 [1:46:57<01:04, 32.31s/it]Epoch 198, Train Err: 5.713e-03, Test Err: 5.545e-02
+100%|█████████▉| 199/200 [1:47:29<00:32, 32.31s/it]Epoch 199, Train Err: 5.711e-03, Test Err: 5.545e-02
+100%|██████████| 200/200 [1:48:02<00:00, 32.31s/it]100%|██████████| 200/200 [1:48:02<00:00, 32.41s/it]
