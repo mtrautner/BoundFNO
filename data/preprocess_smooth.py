@@ -11,7 +11,7 @@ import matplotlib
 import numpy as np
 import pickle as pkl
 
-smooth_data_file = '/groups/astuart/mtrautne/learnHomData/data/smooth_data.pkl'
+smooth_data_file = '/groups/astuart/mtrautne/learnHomData/data/smooth_res_data_256.pkl'
 smooth_data = pkl.load(open(smooth_data_file,'rb'))
 A_input, chi_1, chi_2, x_ticks, y_ticks = smooth_data
 
@@ -24,7 +24,9 @@ print(chi_1.shape)
 # A_input = torch.tensor(A_input)
 sgc = len(x_ticks[0])
 print(sgc)
+
 N_data = A_input.shape[0]
+print('N_data: ', N_data)
 # chi_1 = torch.tensor(chi_1)
 # chi_2 = torch.tensor(chi_2)
 # x_ticks = torch.tensor(x_ticks)
@@ -34,12 +36,12 @@ A_input = np.reshape(A_input, (N_data,sgc,sgc,4))
 A_input = np.delete(A_input, 2, axis = 3)
 A_input = np.transpose(A_input, (0,3,1,2))
 A_input = torch.tensor(A_input).float()
-data_path = 'smooth_training_data/A_to_chi1' 
-tiny_data_path = 'smooth_training_data/A_to_chi1_tiny'
+data_path = 'smooth_training_data/A_to_chi1_256' 
+tiny_data_path = 'smooth_training_data/A_to_chi1_tiny_256'
 
-torch.save(A_input, data_path + '_input_data.pt')
+torch.save(A_input, data_path + '_input_data_256.pt')
 tiny_data_input = A_input[:20]
-torch.save(tiny_data_input, tiny_data_path + '_input_data.pt')
+torch.save(tiny_data_input, tiny_data_path + '_input_data_256.pt')
 A_input = None
 
 data_output = np.reshape(chi_1, (sgc, sgc, N_data,1))
@@ -50,11 +52,11 @@ data_output = torch.tensor(data_output).float()
 
 # save the data
 
-torch.save(data_output, data_path + '_output_data.pt')
+torch.save(data_output, data_path + '_output_data_256.pt')
 
 # Save tiny version of the data
 tiny_data_output = data_output[:20]
-torch.save(tiny_data_output, tiny_data_path + '_output_data.pt')
+torch.save(tiny_data_output, tiny_data_path + '_output_data_256.pt')
 
 
 
