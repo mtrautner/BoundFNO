@@ -88,7 +88,6 @@ def load_model(model_info_path, model_path,s_outputspace = (2048,2048)):
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     try:
-        print('Model device: ', next(model.parameters()).device)
         model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
     except:
         model.load_state_dict(torch.load(model_path))

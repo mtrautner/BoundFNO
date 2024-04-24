@@ -91,7 +91,7 @@ class FNO2d(nn.Module):
         The output resolution is determined by self.s_outputspace
         """
         # Lifting layer
-        # pdb.set_trace()
+
         x_res = x.shape[-2:]
         x = x.permute(0, 2, 3, 1)
         if self.get_grid:
@@ -109,13 +109,10 @@ class FNO2d(nn.Module):
         
         # # Map from input domain into the torus
         x_res_padded_space = (x_res[-1] + x_res[-1]//self.padding, x_res[-2] + x_res[-2]//self.padding)
-        if self.s_outputspace is None:
-            self.s_outputspace = x_res_padded_space
-        # x = F.pad(x, [0, x_res[-1]//self.padding, 0, x_res[-2]//self.padding])
+        
         # Fourier integral operator layers on the torus
         for idx_layer, (speconv, w) in enumerate(zip(self.speconvs, self.ws)):
             if idx_layer != self.n_layers - 1:
-                # pdb.set_trace()
                 if invasive:
                     x_high_res =  speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace))
                     x_high_res = self.act(x_high_res)
@@ -130,7 +127,7 @@ class FNO2d(nn.Module):
                 x = speconv(x, s=self.s_outputspace) + w(projector2d(x, s=self.s_outputspace)) 
 
         # Map from the torus into the output domain
-        if self.num_pad_outputspace is not None:
+        if self.s_outputspace is not None:
             x = x[..., :-self.num_pad_outputspace[-2], :-self.num_pad_outputspace[-1]]
         else:
             x = x[..., :-(x_res[-2]//self.padding), :-(x_res[-1]//self.padding)]
