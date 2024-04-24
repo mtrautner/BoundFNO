@@ -20,6 +20,7 @@ def train_model(input_data, output_data, config):
     model_name = config['model_name']
     N_data = input_data.shape[0]
     train_size = config['N_train']
+    print('Train Size: ', train_size)
     N_modes = config['K']
     width  = config['width']
     act = config['act']
@@ -29,6 +30,7 @@ def train_model(input_data, output_data, config):
     USE_CUDA = config['USE_CUDA']
     d_in = config['d_in']
     d_out = config['d_out']
+    periodic = config['periodic_grid']
 
     if USE_CUDA:
         gc.collect()
@@ -48,7 +50,8 @@ def train_model(input_data, output_data, config):
 
     loss_func = Sobolev_Loss(d=2,p=2)
 
-    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act)
+    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act,periodic_grid= periodic)
+    print("Periodic: ", periodic)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
 
@@ -96,12 +99,18 @@ def train_model(input_data, output_data, config):
         test_err[ep] = test_loss/len(test_loader)
         print('Epoch %d, Train Err: %.3e, Test Err: %.3e' % (ep, train_err[ep], test_err[ep]))
     
-    # take model off cuda
     model.cpu()
     torch.save({'epochs: ': epochs, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict(), 'train_err': train_err, 'test_err': test_err}, model_path)
     
-    # config['train_err_final'] = train_err[-1].detach().numpy()
-    # config['test_err_final'] = test_err[-1].detach().numpy()
+    # print both to .yaml file
+    errors = {}
+    errors['train relative error'] = train_err[-1]
+    errors['test relative error'] = test_err[-1]
+    json_errors = {k: v for k, v in errors.items()}
+    # Save dictionary to json file
+    with open('models/trained_models/' + model_name+ '_errors.yml', 'w') as fp:
+        yaml.dump(json_errors, fp)
+    
 
     return config
 

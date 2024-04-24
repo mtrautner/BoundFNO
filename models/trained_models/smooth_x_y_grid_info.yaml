@@ -1,5 +1,5 @@
-K: 18
-N_train: 9000
+K: 12
+N_train: 5000
 USE_CUDA: true
 act: gelu
 batch_size: 40

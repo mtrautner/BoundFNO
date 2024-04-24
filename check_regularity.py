@@ -92,7 +92,7 @@ def Hs_norm(Z,s):
     scaling = size**2*tau**s
     return torch.sqrt(torch.sum(terms))/scaling
     
-def plot_norms(sizes, s_s, norms,data_s):
+def plot_norms(sizes, s_s, norms,data_s,show = False):
     """
     Plot the norms
     """
@@ -107,8 +107,11 @@ def plot_norms(sizes, s_s, norms,data_s):
     plt.xscale('log')
     plt.legend()
     plt.title(r'$H^s$ norm of GRF with regularity $<$' + str(data_s))
-    plt.savefig('Figures/check_reg/GRF_norms_s' + str(data_s) + '.pdf')
-    plt.clf()
+    plt.savefig('Figures/check_reg/GRF_norms_s' + str(data_s) + '.jpg')
+    if show:
+        plt.show()
+    else:
+        plt.clf()
 
 
 

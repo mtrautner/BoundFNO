@@ -1,0 +1,56 @@
+test relative error: !!python/object/apply:torch._utils._rebuild_tensor_v2
+- !!python/object/apply:torch.storage._load_from_bytes
+  - !!binary |
+    gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+    AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+    aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+    Z2UKcQFYDgAAADk0NjcyNjExMjM3MzkycQJYAwAAAGNwdXEDS8hOdHEEUS6AAl1xAFgOAAAAOTQ2
+    NzI2MTEyMzczOTJxAWEuyAAAAAAAAADzf/g+cNT4Pjsq+T5TXPg+gfv4Pqf/+T5qmPo+1oH7PnmG
+    /T73AP8+cO8AP3qkAj/jGQQ/WuwFP52YBz8oKQo/pEgLP2lgDD+0cA0/d8sOP2PiDz/4OBA/soUR
+    P5v0ET+skhI/3SsTP67bEz+hThQ/h1oUPwZZFT9ighU/0dsVP3AeFj+VcxY/KAIXP18PFz+lhxc/
+    vbsXP6jtFz8VNxg/EjoYP0WDGD8uZxg/TcMYPwbaGD+aGBk/vTAZP5aKGT+Tcxk/jNUZPxH6GT+D
+    /hk/pesZP1ImGj+PGRo/bjEaP6VKGj8fcBo/I8IaP6yYGj8Ayho/ed0aP7DhGj904ho/MDwbPx9M
+    Gz8BHxs/8EwbP/CYGz/qiRs/i4AbPzqwGz8+vRs/LbYbP9DpGz+HAxw/PhEcP+8CHD9PEBw/vDYc
+    P1NaHD9FlRw/BIkcP0GwHD8H0xw/1socPxy/HD/q8hw/I90cPyMSHT8eEx0/zy4dP1w5HT8FQx0/
+    t3UdP+GIHT96mR0/nrIdP8bCHT+U7B0/ewkeP3/6HT8NHh4/IjcePwdDHj8Vbh4/emUeP22aHj/f
+    kh4/hccePwO1Hj9z1B4/29wePxH1Hj91GB8/Ti8fP/czHz+rRB8/fWMfPxt1Hz/2lR8/4pwfP/7D
+    Hz8u1h8/oOIfP3QBID+8ASA/KScgPwwyID+HTSA/V2IgP9xmID9IjiA/f38gPzG0ID8FtiA/F80g
+    P3HiID+K8iA/m/0gPzYNIT8KMCE/cjshPzo/IT/ITCE/HWQhP2B1IT9+fSE/XpYhP96jIT/2syE/
+    0c4hP3/VIT/m4yE/neYhPwn2IT9GASI/9BIiPxETIj/MKSI/RzEiP1c7Ij/mPiI/xUciP6ZRIj8p
+    WyI/pWYiP29sIj+BdyI/Z3wiP6SEIj/ciCI/xZEiPx+SIj/KniI/Z6MiP0SkIj/HqCI/rK8iP0uw
+    Ij+ctiI/IboiP+u7Ij+wviI/ScAiP+rEIj8AxCI/scgiPzfKIj9syyI/QswiP5rOIj/yziI/rs8i
+    P2TQIj+7zyI/j9AiPxbRIj9N0SI/DdIiPw==
+- 199
+- !!python/tuple []
+- !!python/tuple []
+- false
+- !!python/object/apply:collections.OrderedDict
+  - []
+train relative error: !!python/object/apply:torch._utils._rebuild_tensor_v2
+- !!python/object/apply:torch.storage._load_from_bytes
+  - !!binary |
+    gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+    AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+    aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+    Z2UKcQFYDgAAADk0NjcyNTYxMjk4MjcycQJYAwAAAGNwdXEDS8hOdHEEUS6AAl1xAFgOAAAAOTQ2
+    NzI1NjEyOTgyNzJxAWEuyAAAAAAAAADoQgw/Wb72Pu//9T4qYPU+9LX0PiuN8z6STfI+6J7wPpaS
+    7j6dsOs+rGDoPqCU5D7Sy98+o67ZPhL70j5igMs+bibDPsiRuj6RUbI+Wk2qPvfRoj5OGJw+lp6V
+    PkPejz7+7Yo++k2GPgv5gT6tF3w+PxJ1PqIGbz4Pamk+oEdkPuTzXz5Xdls+h2BXPrcBVD6bmVA+
+    LtNNPtv3Sj45XEg+rNtFPlApQz5hDEE+OjI/PtGwPT6n2zs+jvI5Ps80OD5tezY+1Ow0PnGHMz7B
+    PzI+GvAwPnafLz7wai4+NmItPoMlLD6cySo+Y5UpPi53KD72Xyc+i8gmPoPhJT47vCQ+/NcjPls5
+    Iz7jUiI+Wk8hPmWJID5Fyh8+6OkePsPVHT40BR0+CHYcPsS6Gz6TKhs+804aPoOoGT7/Gxk+Ql8Y
+    PlPRFz4RDxc+AC4WPm+iFT6DDxU+uqoUPtRDFD7JjBM+1usSPiZKEj6DyBE+80YRPs+jED4oRxA+
+    vqQPPkwSDz7siw4+eg8OPp6XDT7UHQ0+HcEMPv5BDD6mwws+uU8LPiXnCj5+fAo+2w0KPmqoCT6j
+    Ogk+pdkIPjBsCD7qDQg+1q4HPplWBz4c6QY+N5IGPoo+Bj797QU+35gFPsMuBT5H4AQ+9JEEPn89
+    BD5c8QM+g50DPiZLAz5QDQM++8oCPl12Aj52KwI+xucBPiSyAT7icQE+wjgBPuzvAD4gsgA+pHkA
+    Pjw9AD74CAA+p63/PYRC/z3j1P49MHb+PbcP/j2Dt/09RVj9PagA/T3yrfw9SlX8PZ0C/D1Ot/s9
+    UHD7PTQp+z2W3Po9V5T6PXJT+j2bEvo9ktX5PcCX+T0gXfk9OCP5PRvs+D0muPg9gob4PXxV+D39
+    Jfg9jPr3PQHQ9z3lp/c9HYD3PTla9z3BNfc9JRT3PX/09j1+1fY9Nrj2PeOc9j3ngvY93mn2PZNS
+    9j0XPfY9PCn2PZoV9j3hA/Y9jvP1PVLk9T2Z1vU9rsn1Pfq99T2js/U9/qn1PZGh9T00mvU9uZP1
+    PSWO9T2OifU9xIX1Pb6C9T2LgPU9EH/1PQ==
+- 199
+- !!python/tuple []
+- !!python/tuple []
+- false
+- !!python/object/apply:collections.OrderedDict
+  - []
