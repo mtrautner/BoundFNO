@@ -1,25 +1,27 @@
 import os, sys
 import argparse
+import yaml
+import gc
+import pickle as pkl
+from tqdm import tqdm
+from timeit import default_timer
+
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import gc
-from timeit import default_timer
-import pickle as pkl
-import numpy as np
-import sys
 import torch.utils.data
-from tqdm import tqdm
-import yaml
+
+from src.fno2d import FNO2d
+from src.utilities3 import LpLoss, HsLoss
+from src.subsample_scheduler import SubsampleScheduler
 
 # add parent directories to path
 sys.path.append('../')
 sys.path.append('../../')
 
-from src.fno2d import FNO2d
-from src.utilities3 import LpLoss, HsLoss
-from src.subsample_scheduler import SubsampleScheduler
+
 
 def load_data(config):
     N_train = 2000 #

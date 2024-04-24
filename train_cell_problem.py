@@ -1,27 +1,34 @@
 import os, sys
 import argparse
+import yaml
+import gc
+import pickle as pkl
+from tqdm import tqdm
+from timeit import default_timer
+
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import gc
-from timeit import default_timer
-import pickle as pkl
-import numpy as np
-import sys
 import torch.utils.data
-from tqdm import tqdm
-import yaml
-
-# add parent directories to path
-sys.path.append('../')
-sys.path.append('../../')
 
 from src.fno2d import FNO2d
 from src.utilities3 import LpLoss, HsLoss
 from src.subsample_scheduler import SubsampleScheduler
 
+# add parent directories to path
+sys.path.append('../')
+sys.path.append('../../')
+
+
 def load_data(config):
+    '''
+    Load in data for the cell problem.
+
+    Args: config dictionary
+    Output: torch train and test loaders
+    '''
     N_train = 5000 #
     N_valid = 512
     N_test = 512 #
@@ -60,8 +67,10 @@ def load_data(config):
 
 
 def train_model(config):
+    '''
+    Main training routine for cell problem.
+    '''
     # Take in user arguments
-    #data_path = config['data_path']
     model_name = config['model_name']
     N_modes = config['N_modes']
     width = config['width']
@@ -185,7 +194,6 @@ def train_model(config):
         
         
     # Save model
-    # model_path = '/groups/astuart/mtrautne/FNM/FourierNeuralMappings/homogenization/trainModels/trainedModels/' + model_name
     torch.save(
         {'epoch': epochs,
         'model_state_dict': model.state_dict(),
@@ -200,10 +208,6 @@ def train_model(config):
     # convert config to a dict that will be readable when saved as a .json    
     with open(model_info_path, 'w') as fp:
         yaml.dump(config, fp)
-
-    # Compute and save errors
-    #model_path = 'trainedModels/' + model_name
-    #loss_report_f2v(y_test_approx_all, y_test, x_test, model_path)
     
 
 if __name__ == "__main__":
