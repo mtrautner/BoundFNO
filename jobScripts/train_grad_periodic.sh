@@ -15,5 +15,5 @@
 #SBATCH --array=1
 cd ../
 
-python  -u train_grad_model.py -c config_default.yaml
+python  -u train_grad_model.py -c config_grad.yaml
 

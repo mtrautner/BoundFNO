@@ -10,7 +10,7 @@
 #SBATCH --output=outputs/train-grad-per-subsampling.out 
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=end
-#SBATCH --mail-type=failOB
+#SBATCH --mail-type=fail
 #SBATCH --mail-user=slanth@caltech.edu
 #SBATCH --array=1
 cd ../

@@ -1,7 +1,7 @@
 ---
 model_name: standard
-N_modes: 14
-width: 196
+N_modes: 16
+width: 64
 epochs: 250
 batch_size: 32
 lr: 1e-3

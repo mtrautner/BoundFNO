@@ -88,8 +88,8 @@ def train_model(config):
     train_loader, valid_loader, test_loader = load_data(config)
 
     # Set loss function to be H1 loss
-    #loss_func = LpLoss(p=2)
-    loss_func = HsLoss()
+    loss_func = LpLoss(p=2)
+    #loss_func = HsLoss()
 
     # Specify pointwise degrees of freedom
     d_in = 1 # function

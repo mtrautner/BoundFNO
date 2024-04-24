@@ -126,7 +126,7 @@ def train_model(config):
             optimizer.zero_grad()
             x = x.to(device)
             y = y.to(device)
-            if config['subsampling'] and subsampler.ss>1:
+            if config['subsampling']:
                 x,y = subsampler(x,y)
 
             pred = model(x)
@@ -149,7 +149,7 @@ def train_model(config):
             for x,y in test_loader:
                 x = x.to(device)
                 y = y.to(device)
-                if config['subsampling'] and subsampler.ss>1:
+                if config['subsampling']:
                     x,y = subsampler(x,y)
                 pred = model(x)
                 t_loss = loss_func(pred,y)

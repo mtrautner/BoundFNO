@@ -15,6 +15,9 @@ class SubsampleScheduler:
         self.best = float("Inf")
         
     def __call__(self,x,y):
+        if self.ss==1:
+            return x,y
+        
         ss = self.ss
         if self.ndim==1:
             return x[...,::ss], y[...,::ss]
