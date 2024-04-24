@@ -5,8 +5,10 @@ import numpy as np
 import os, sys
 from importlib import import_module
 from tqdm import tqdm
+from timeit import default_timer
 # from util import Adam
 from util.utilities_module import *
+from util.subsample_scheduler import SubsampleScheduler
 import yaml
 from models.func_to_func2d_invasive import FNO2d
 
@@ -15,7 +17,6 @@ def train_model(input_data, output_data, config):
     """
     Input data is torch array and has form (N_data, d_in, nx, ny)
     Output data is torch array and has form (N_data, d_out, nx, ny)
-
     """
     model_name = config['model_name']
     N_data = input_data.shape[0]
@@ -31,7 +32,8 @@ def train_model(input_data, output_data, config):
     d_in = config['d_in']
     d_out = config['d_out']
     periodic = config['periodic_grid']
-
+    subsampling = config['subsampling']
+    
     if USE_CUDA:
         gc.collect()
         torch.cuda.empty_cache()
@@ -41,12 +43,17 @@ def train_model(input_data, output_data, config):
     test_start = N_data - 500
     test_end = N_data
 
+    # hold out a validation set
+    valid_size = 500
+
     #=========TRAINING==========#
     y_train = output_data[:train_size]
     y_test = output_data[test_start:test_end]
-
+    y_valid = output_data[train_size:train_size+valid_size]
+    
     x_train = input_data[:train_size]
     x_test = input_data[test_start:test_end]
+    x_valid = input_data[train_size:train_size+valid_size]
 
     loss_func = Sobolev_Loss(d=2,p=2)
 
@@ -55,6 +62,12 @@ def train_model(input_data, output_data, config):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
 
+    #
+    if subsampling:
+        gridsize = 128
+        minsize = 32
+        subsampler = SubsampleScheduler(gridsize // minsize, patience=40)
+    
     if USE_CUDA:
         model.cuda()
 
@@ -62,16 +75,25 @@ def train_model(input_data, output_data, config):
     train_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_train, y_train), batch_size=b_size,
                                            shuffle=True)
     test_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_test,y_test), batch_size = b_size, shuffle = False)
-    
-    
+    valid_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(x_valid,y_valid), batch_size = b_size, shuffle = False)    
+
+    #
     train_err = torch.zeros((epochs,))
     test_err = torch.zeros((epochs,))
+    valid_err = torch.zeros((epochs,))
+    epoch_timings = torch.zeros((epochs,))
 
+    #
     for ep in tqdm(range(epochs)):
+        t1 = default_timer()
         train_loss = 0.0
         test_loss = 0.0
+        valid_loss = 0.0
 
         for x, y in train_loader:
+            if subsampling:
+                x,y = subsampler(x,y)
+
             optimizer.zero_grad()
             if USE_CUDA:
                 x = x.cuda()
@@ -88,19 +110,60 @@ def train_model(input_data, output_data, config):
 
         with torch.no_grad():
             for x,y in test_loader:
+                if subsampling:
+                    x,y = subsampler(x,y)
+                    
                 if USE_CUDA:
                     x = x.cuda()
                     y = y.cuda()
                 y_test_approx = model(x,USE_CUDA = True)
+                y = y.squeeze()
                 t_loss = loss_func.Lp_rel_err(y_test_approx,y,size_average = True)
                 test_loss = test_loss + t_loss.item()
+
+        if subsampling:
+            # compute validation error
+            with torch.no_grad():
+                for x,y in valid_loader:
+                    if subsampling:
+                        x,y = subsampler(x,y)
+                    if USE_CUDA:
+                        x = x.cuda()
+                        y = y.cuda()
+                    #
+                    y_approx = model(x,USE_CUDA = True)
+                    y = y.squeeze()
+                    t_loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
+                    valid_loss = valid_loss + t_loss.item()
+
+            # adjust subsampling rate adaptively
+            valid_loss = valid_loss / len(valid_loader)
+            subsampler.step(valid_loss) 
                 
         train_err[ep] = train_loss/len(train_loader)
         test_err[ep] = test_loss/len(test_loader)
-        print('Epoch %d, Train Err: %.3e, Test Err: %.3e' % (ep, train_err[ep], test_err[ep]))
-    
+        valid_err[ep] = valid_loss
+        
+        if subsampling:
+            subsamp_str =  f'[subsamp: {subsampler.ss}]'
+        else:
+            subsamp_str = ''
+
+        # record epoch timings
+        t2 = default_timer()
+        epoch_timings[ep] = t2 - t1
+        print(f'[{ep+1:3}], time: {t2-t1:.3f}, train: {train_err[ep]:.3e}, test: {test_err[ep]:.3e}' + subsamp_str, flush=True)
+        
     model.cpu()
-    torch.save({'epochs: ': epochs, 'model_state_dict': model.state_dict(), 'optimizer_state_dict': optimizer.state_dict(), 'train_err': train_err, 'test_err': test_err}, model_path)
+    torch.save({
+        'epochs: ': epochs,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'train_err': train_err,
+        'test_err': test_err,
+        'valid_err': valid_err,
+        'epoch_timings': epoch_timings,
+    }, model_path)
     
     # print both to .yaml file
     errors = {}
