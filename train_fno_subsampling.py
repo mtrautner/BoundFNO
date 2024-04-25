@@ -99,6 +99,7 @@ def train_model(input_data, output_data, config):
                 x = x.cuda()
                 y = y.cuda()
 
+            model.set_outputspace_resolution()
             y_approx = model(x,USE_CUDA = True).squeeze()
             y = y.squeeze()
             loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
@@ -116,8 +117,9 @@ def train_model(input_data, output_data, config):
                 if USE_CUDA:
                     x = x.cuda()
                     y = y.cuda()
+                model.set_outputspace_resolution()
                 y_test_approx = model(x,USE_CUDA = True)
-                y = y.squeeze()
+                #y = y.squeeze()
                 t_loss = loss_func.Lp_rel_err(y_test_approx,y,size_average = True)
                 test_loss = test_loss + t_loss.item()
 
@@ -131,8 +133,9 @@ def train_model(input_data, output_data, config):
                         x = x.cuda()
                         y = y.cuda()
                     #
+                    model.set_outputspace_resolution()
                     y_approx = model(x,USE_CUDA = True)
-                    y = y.squeeze()
+                    #y = y.squeeze()
                     t_loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
                     valid_loss = valid_loss + t_loss.item()
 
