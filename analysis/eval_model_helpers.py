@@ -105,7 +105,8 @@ def load_data(data_path):
     data = pkl.load(open(data_path, 'rb'))
     return data
 
-def get_layer_output(model, input, invasive = True, USE_CUDA = False):
+def get_layer_output(model, input, invasive = True):
+    USE_CUDA = torch.cuda.is_available()
     if USE_CUDA:
         model = model.cuda()
     with torch.no_grad():

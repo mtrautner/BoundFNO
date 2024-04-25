@@ -13,6 +13,6 @@ lr: 0.001
 model_name: grad_xy_grid
 n_layers: 4
 output_data_path: data/grad_training_data/output_data_grad.pt
-periodic_grid: true
+periodic_grid: false
 seed: 1989
 width: 64
