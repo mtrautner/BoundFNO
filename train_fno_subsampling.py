@@ -32,6 +32,7 @@ def train_model(input_data, output_data, config):
     d_in = config['d_in']
     d_out = config['d_out']
     periodic = config['periodic_grid']
+    get_grid = config['get_grid']
     subsampling = config['subsampling']
     
     if USE_CUDA:
@@ -57,7 +58,8 @@ def train_model(input_data, output_data, config):
 
     loss_func = Sobolev_Loss(d=2,p=2)
 
-    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act,periodic_grid= periodic)
+    model = FNO2d(modes1=N_modes, modes2=N_modes, width=width, d_in=d_in, d_out=d_out, act=act, get_grid=get_grid, periodic_grid= periodic)
+    print("Grid Status: ", get_grid)
     print("Periodic: ", periodic)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, 1e-6)
@@ -99,12 +101,16 @@ def train_model(input_data, output_data, config):
                 x = x.cuda()
                 y = y.cuda()
 
-            model.set_outputspace_resolution()
+            #model.set_outputspace_resolution()
             y_approx = model(x,USE_CUDA = True).squeeze()
             y = y.squeeze()
-            loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
+            loss = loss_func.Lp_rel_err(y_approx,y,size_average=True)
             loss.backward()
             train_loss = train_loss + loss.item()
+            #loss = loss_func.W1p_rel_err(y_approx,y).mean()
+            # loss.backward()
+            #loss_l2 = loss_func.Lp_rel_err(y_approx,y,size_average=True)
+            #train_loss = train_loss + loss_l2.item()
 
             optimizer.step()
         scheduler.step()
@@ -117,9 +123,8 @@ def train_model(input_data, output_data, config):
                 if USE_CUDA:
                     x = x.cuda()
                     y = y.cuda()
-                model.set_outputspace_resolution()
+                #model.set_outputspace_resolution()
                 y_test_approx = model(x,USE_CUDA = True)
-                #y = y.squeeze()
                 t_loss = loss_func.Lp_rel_err(y_test_approx,y,size_average = True)
                 test_loss = test_loss + t_loss.item()
 
@@ -133,7 +138,7 @@ def train_model(input_data, output_data, config):
                         x = x.cuda()
                         y = y.cuda()
                     #
-                    model.set_outputspace_resolution()
+                    #model.set_outputspace_resolution()
                     y_approx = model(x,USE_CUDA = True)
                     #y = y.squeeze()
                     t_loss = loss_func.Lp_rel_err(y_approx,y,size_average = True)
