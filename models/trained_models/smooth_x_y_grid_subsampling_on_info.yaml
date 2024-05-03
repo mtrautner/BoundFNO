@@ -6,7 +6,7 @@ batch_size: 40
 d_in: 3
 d_out: 1
 device: gpu
-epochs: 200
+epochs: 300
 get_grid: true
 input_data_path: data/smooth_training_data/A_to_chi1_input_data.pt
 lr: 0.001
